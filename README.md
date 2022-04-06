@@ -8,6 +8,8 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 `Users` require an account to use the platform. Upon login, the `user` can add to their profile through pasting an embedded link to a post they would like to add to their profile. They can also look up `other users` by their username to view their profile. If they enjoy a post they see, they can click to embed the post onto their own profile.
 
+**Note:** All `users` will only be able to embed public posts
+
 **Potential future feature:**
 
 -   Ability for users to vote on posts they like.
