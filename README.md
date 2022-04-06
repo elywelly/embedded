@@ -14,17 +14,17 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 **Potential future feature:**
 
--   Ability for users to vote on posts they like.
+-   Ability for users to comment on posts they like.
 -   Ability for users to upload unique posts that they created.
--   Ability for users to search for posts by theme.
+-   Ability for users to search for posts by tags/topics within Embedded.
 
 ## User Stories/Flow
 
--   `Jon` is across multiple platforms and enjoys revisiting funny memes and videos he sees online. He enjoys sharing them with his friend, `Rose`, but often forgets where he saw it from (Was it Facebook? Or was it Instagram?). Embedded is the perfect platform to consolidate all his favourite posts and share them with others of similar interests.
+-   `Jon` is across multiple platforms and enjoys revisiting funny memes and videos he sees online. He enjoys sharing them with his friend, `Rose`, but often forgets where he saw it from (Was it Facebook? Or was it Instagram?). Embedded is the perfect platform to consolidate all his favourite posts and share them.
 
--   `Rose` is across multiple platforms and enjoys short videos and life hack tips she sees online, she uses Embedded to consolidate/revisit them. She also enjoys the occassional memes, which her friend, `Jon` sometimes shares with her.
+-   `Rose` prefers to be on only one platform, she enjoys short videos and the life hack tips she sees online. She uses Embedded to revisit them and view posts shared by her friends who are on other/multiple platforms. She enjoys the occassional memes, which her friend, `Jon` shares on his embedded profile.
 
-![Split Login](/assets/user-stories.png)
+![Split Login](/assets/user-story.png)
 
 ## Wireframe
 
@@ -32,6 +32,6 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 ## Entity Relationship Diagram
 
-![Entity Relationship Diagram](/assets/entity-relationship-diagram.png)
+![Entity Relationship Diagram](/assets/db-diagram.png)
 
 ## Approach
