@@ -4,13 +4,33 @@ if (process.env.NODE_ENV !== "production") {
 
 import express, { Request, Response } from "express";
 import path from "path";
+const expressSession = require('express-session');
+
+const pgSession = require('connect-pg-simple')(expressSession);
+const db = require('./database/db');
+
+const usersController = require('./controllers/users');
 
 const PORT =
     process.env.PORT || (process.env.NODE_ENV === "production" && 3000) || 3001;
 const app = express();
 
+app.use(
+  expressSession({
+      store: new pgSession({
+          pool: db,
+          createTableIfMissing: true,
+      }),
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: false,
+  })
+);
+
 app.set("trust proxy", 1);
-app.use(express.json()); // support json encoded bodies
+app.use(express.json()); 
+
+app.use('/api/users/', usersController);
 
 app.get("/api/test", (req: Request<any, any, any, any>, res: Response<any>) => {
     res.json({ date: new Date().toString() });
