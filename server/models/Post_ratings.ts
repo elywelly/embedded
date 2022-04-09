@@ -1,6 +1,7 @@
-db = require('../database/db.js');
+const db = require('../database/db.js')
 
-let Post_ratings = {
+
+const Post_ratings = {
     userId: (userId) => {
         const query = `SELECT rating FROM post_ratings WHERE user_id = $1`;
         return db.query(query, [userId]).then((response) => {
@@ -22,4 +23,4 @@ let Post_ratings = {
     }
 };
 
-module.exports = Post_ratings;
+export default Post_ratings;

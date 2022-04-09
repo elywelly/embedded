@@ -1,6 +1,6 @@
-db = require('../database/db.js');
+const db = require('../database/db.js')
 
-let Posts = {
+const Posts = {
     userId: (userId) => {
         const query = `SELECT * FROM posts WHERE user_id = $1`;
         return db.query(query, [userId]).then((response) => {
@@ -27,4 +27,4 @@ let Posts = {
     },
 };
 
-module.exports = Posts;
+export default Posts;

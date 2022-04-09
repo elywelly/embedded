@@ -1,6 +1,12 @@
-let db = require('../database/db');
+const db = require('../database/db.js')
 
-let Users = {
+const Users = {
+    all: () => {
+        const query = 'SELECT * FROM users';
+        return db.query(query).then((response) => {
+            return response.rows ? response.rows[0] : {};
+        });
+    },
     id: (id) => {
         const query = 'SELECT * FROM users WHERE id = $1';
         return db.query(query, [id]).then((response) => {
@@ -24,4 +30,4 @@ let Users = {
     },
 };
 
-module.exports = Users;
+export default Users;
