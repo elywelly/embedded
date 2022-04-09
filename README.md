@@ -8,7 +8,7 @@ View `Embedded` the app [here](https://embedded-the-app.herokuapp.com/).
 
 Simplifying the way `users` share their favourite posts or revisit content that they enjoy across multiple platforms. Embedded consolidates (embeds) them into one spot, their embedded profile.
 
-`Users` require an account to use the platform. Upon login, the `user` can add to their profile through pasting an embedded link to a post they would like to add to their profile. They can also look up `other users` by their username to view their profile. If they enjoy a post they see, they can click to embed the post onto their own profile.
+`Users` require an account to use the platform. Upon login, the `user` can add to their profile through pasting an embedded link to a post they would like to add to their profile. They can also look up `other users` by their username to view their profile. If they enjoy a post they see, they can click to embed the post onto their own profile. Users are also able to rate posts out of 5.
 
 **Note:** All `users` will only be able to embed public posts
 
@@ -24,7 +24,7 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 -   `Rose` prefers to be on only one platform, she enjoys short videos and the life hack tips she sees online. She uses Embedded to revisit them and view posts shared by her friends who are on other/multiple platforms. She enjoys the occassional memes, which her friend, `Jon` shares on his embedded profile.
 
-![Split Login](/assets/user-story.png)
+![Split Login](/assets/userStory.png)
 
 ## Wireframe
 
@@ -32,6 +32,6 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 ## Entity Relationship Diagram
 
-![Entity Relationship Diagram](/assets/diagram.png)
+![Entity Relationship Diagram](/assets/erdDiagram.png)
 
 ## Approach
