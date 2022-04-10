@@ -6,7 +6,7 @@ export const Profile = () => {
     useEffect(() => {
         const getData = async () => {
             const res = await axios.get(`api/users`);
-            console.log(res.data.username);
+            console.log(res.data);
             setUser(res.data.username);
         };
         getData();

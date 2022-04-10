@@ -20,8 +20,9 @@ router.post('/create', (req, res) => {
 
     Users.create(user)
         .then((user) => {
-            req.session.id = user.id;
             req.session.username = user.username;
+            req.session.email = user.email;
+            req.session.password = user.password;
 
             res.json(user);
         })
