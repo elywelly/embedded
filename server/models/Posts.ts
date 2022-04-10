@@ -1,16 +1,22 @@
 const db = require('../database/db.js')
 
 const Posts = {
-    userId: (userId) => {
+    all: () => {
+        const query = 'SELECT * FROM posts';
+        return db.query(query).then((response) => {
+            return response.rows;
+        });
+    },
+    user_id: (user_id) => {
         const query = `SELECT * FROM posts WHERE user_id = $1`;
-        return db.query(query, [userId]).then((response) => {
+        return db.query(query, [user_id]).then((response) => {
             return response.rows;
         });
     },
     id: (id) => {
         const query = `SELECT * FROM posts WHERE id = $1`;
         return db.query(query, [id]).then((response) => {
-            return response;
+            return response.rows ? response.rows[0] : {}
         });
     },
     create: ({user_id, link}) => {
