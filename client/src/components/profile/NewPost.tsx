@@ -1,23 +1,60 @@
-import { Button, ButtonProps, Stack, styled, TextField } from '@mui/material';
-import { purple } from '@mui/material/colors';
+import { Stack, TextField } from '@mui/material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-
-const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-    color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: purple[500],
-    '&:hover': {
-        backgroundColor: purple[700],
-    },
-}));
+import { ReactChild, ReactNode, useEffect, useRef, useState } from 'react';
+import { ColorSubmitButton } from './styles';
 
 export const NewPost = () => {
     const [link, setLink] = useState('');
     const [newlink, setNewLink] = useState('');
-    // get value on submit, put in db
-    // clear field
-    // profile page to get from db all posts and display
+
+    // conditional to add to db or not based on iframe code
     // if section innerHTML empty to say issue with link, if not render
+
+    // const [preview, setPreview] = useState('');
+    // const previewRef = useRef<HTMLElement>(null);
+    // useEffect(() => setPreview(previewRef?.current?.children[0]), []);
+
+    const handleSubmit = async () => {
+        setNewLink(link);
+        setLink('');
+
+        const postBody = {
+            user_id: 1,
+            link: link,
+        };
+
+        const sendLink = async () => {
+            try {
+                const resPost = await axios.post(`/api/posts/create`, postBody);
+                console.log(resPost.statusText);
+                createRating();
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        sendLink();
+
+        // get post id - is there a better way to auto create rating?
+
+        const ratingBody = {
+            user_id: 1,
+            post_id: link,
+            rating: 0,
+        };
+
+        const createRating = async () => {
+            try {
+                const resPost = await axios.post(
+                    `/api/post_ratings/create`,
+                    ratingBody
+                );
+                console.log(resPost.statusText);
+                createRating();
+            } catch (err) {
+                console.error(err);
+            }
+        };
+    };
 
     return (
         <div>
@@ -33,18 +70,13 @@ export const NewPost = () => {
                     value={link}
                     rows={4}
                     multiline
-                    defaultValue='Hello!'
                     onChange={(event: any) => {
                         setLink(event.target.value);
                     }}
                 />
-                <ColorButton
-                    variant='contained'
-                    onClick={() => {
-                        setNewLink(link);
-                    }}>
+                <ColorSubmitButton variant='contained' onClick={handleSubmit}>
                     Submit
-                </ColorButton>
+                </ColorSubmitButton>
                 <h3>Preview:</h3>
                 <section dangerouslySetInnerHTML={{ __html: newlink }} />
             </Stack>

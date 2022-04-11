@@ -1,6 +1,7 @@
 const express = require('express');
 import Posts from '../../models/Posts';
 
+
 const router = express.Router();
 
 router.get('/', (req, res) => {

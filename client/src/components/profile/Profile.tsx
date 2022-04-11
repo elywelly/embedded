@@ -2,15 +2,25 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export const Profile = () => {
-    const [user, setUser] = useState<any>('');
+    const [userLinks, setUserLinks] = useState<any>([]);
+
     useEffect(() => {
         const getData = async () => {
-            const res = await axios.get(`api/users`);
+            // TODO change to userid = session.id
+            const res = await axios.get(`api/posts/1`);
             console.log(res.data);
-            setUser(res.data.username);
+            setUserLinks(res.data);
         };
         getData();
     }, []);
 
-    return <div>{user}</div>;
+    return (
+        <div>
+            {userLinks.map((link: any) => {
+                return (
+                    <section dangerouslySetInnerHTML={{ __html: link.link }} />
+                );
+            })}
+        </div>
+    );
 };
