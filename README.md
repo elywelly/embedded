@@ -17,6 +17,7 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 -   Ability for users to comment on posts they like.
 -   Ability for users to upload unique posts that they created.
 -   Ability for users to search for posts by tags/topics within Embedded.
+-   Security: Change ability for users to dynamically add `iframes`, specifying only links from trusted external sites that they can add and/or add sandbox mode.
 
 ## User Stories/Flow
 
