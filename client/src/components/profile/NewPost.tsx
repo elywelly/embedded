@@ -1,59 +1,113 @@
-import { Stack, TextField } from '@mui/material';
+import {
+    Stack,
+    TextField,
+    InputLabel,
+    Select,
+    MenuItem,
+    Box,
+    FormControl,
+} from '@mui/material';
 import axios from 'axios';
-import { ReactChild, ReactNode, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { ColorSubmitButton } from './styles';
 
 export const NewPost = () => {
     const [link, setLink] = useState('');
     const [newlink, setNewLink] = useState('');
-
+    const [platform, setPlatform] = useState('');
+    const [newplatform, setNewPlatform] = useState('');
+    const [invalidLink, setInvalidLink] = useState('');
+    const [emptyForm, setEmptyForm] = useState(false);
+    const [linkForm, setLinkForm] = useState(false);
     // conditional to add to db or not based on iframe code
     // if section innerHTML empty to say issue with link, if not render
 
-    // const [preview, setPreview] = useState('');
-    // const previewRef = useRef<HTMLElement>(null);
-    // useEffect(() => setPreview(previewRef?.current?.children[0]), []);
-
     const handleSubmit = async () => {
-        setNewLink(link);
+        setNewPlatform(platform);
         setLink('');
+        setPlatform('');
+        setInvalidLink('');
+
+        const youtubeRegex = new RegExp(
+            /^<iframe\swidth="560" height="315"\ssrc="https:\/\/www\.youtube\.com\/embed\.*?[<\/iframe>]/gm
+        );
+        const instaRegex = new RegExp(
+            /^https:\/\/www\.instagram\.com\/.*\/$/gm
+        );
+        const twitterRegex = new RegExp(
+            /^<blockquote\sclass="twitter-tweet"><p lang="en" dir="ltr">.*<\/a><\/blockquote>\s<script async src="https:\/\/platform\.twitter\.com\/widgets\.js" charset="utf-8"><\/script>$/gm
+        );
+        const giphyRegex = new RegExp(
+            /^<iframe\ssrc="https:\/\/giphy\.com\/embed\/.*<\/iframe><p><a href=".*">via GIPHY<\/a><\/p>$/gm
+        );
 
         const postBody = {
-            user_id: 1,
-            link: link,
+            user_id: 1, //TODO get rid of this in front end, just in controller
+            link,
         };
 
         const sendLink = async () => {
             try {
                 const resPost = await axios.post(`/api/posts/create`, postBody);
                 console.log(resPost.statusText);
-                createRating();
             } catch (err) {
                 console.error(err);
             }
         };
-        sendLink();
 
-        // get post id - is there a better way to auto create rating?
+        if (link == '' || link == ' ') {
+            setLinkForm(true);
+        }
 
-        const ratingBody = {
-            user_id: 1,
-            post_id: link,
-            rating: 0,
-        };
-
-        const createRating = async () => {
-            try {
-                const resPost = await axios.post(
-                    `/api/post_ratings/create`,
-                    ratingBody
-                );
-                console.log(resPost.statusText);
-                createRating();
-            } catch (err) {
-                console.error(err);
-            }
-        };
+        switch (platform) {
+            case 'youtube':
+                if (youtubeRegex.test(link)) {
+                    postBody.link = link;
+                    setNewLink(postBody.link);
+                    sendLink();
+                } else {
+                    setInvalidLink(
+                        "Invalid YouTube embed code, please use YouTube's embed code as is"
+                    );
+                }
+                break;
+            case 'instagram':
+                if (instaRegex.test(link)) {
+                    postBody.link = `<iframe src="${link}/embed?utm_source=ig_embedembed/" scrolling="no" data-instgrm-payload-id="instagram-media-payload-0" width: calc(100% - 2px) height="750" frameborder="0"></iframe>`;
+                    sendLink();
+                    setNewLink(postBody.link);
+                } else {
+                    setInvalidLink(
+                        "Invalid Instagram post link, please use the insta's post link as is without a '/' at the end"
+                    );
+                }
+                break;
+            case 'twitter':
+                if (twitterRegex.test(link)) {
+                    postBody.link = link;
+                    sendLink();
+                    setNewLink(postBody.link);
+                } else {
+                    setInvalidLink(
+                        "Invalid Twitter embed code, please use Twitter's embed code as is"
+                    );
+                }
+                break;
+            case 'giphy':
+                if (giphyRegex.test(link)) {
+                    postBody.link = link.split('<p>')[0];
+                    sendLink();
+                    setNewLink(postBody.link);
+                } else {
+                    setInvalidLink(
+                        "Invalid Giphy embed code, please use Giphy's embed iframe code as is"
+                    );
+                }
+                break;
+            default:
+                setEmptyForm(true);
+                setInvalidLink('Platform required');
+        }
     };
 
     return (
@@ -64,13 +118,46 @@ export const NewPost = () => {
                 alignItems='center'
                 spacing={1.5}>
                 <h2>Embed a new post:</h2>
+                <h4></h4>
+                <p>{invalidLink}</p>
+                <Box sx={{ m: 1, minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id='demo-simple-select-autowidth-label'>
+                            Platform Origin
+                        </InputLabel>
+                        <Select
+                            labelId='demo-simple-select-autowidth-label'
+                            id='demo-simple-select-autowidth'
+                            label='Platform Origin'
+                            value={platform}
+                            error={emptyForm}
+                            onChange={(event: any) => {
+                                setPlatform(event.target.value);
+                                setLinkForm(false);
+                                if (event.target.value == 'instagram') {
+                                    setInvalidLink(
+                                        'No embed link needed, just an instagram post link'
+                                    );
+                                } else {
+                                    setInvalidLink('');
+                                }
+                            }}>
+                            <MenuItem value={'youtube'}>YouTube</MenuItem>
+                            <MenuItem value={'instagram'}>Instagram</MenuItem>
+                            <MenuItem value={'twitter'}>Twitter</MenuItem>
+                            <MenuItem value={'giphy'}>Giphy</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
                 <TextField
                     id='outlined-multiline-static'
                     label='Embed Link'
                     value={link}
                     rows={4}
+                    error={linkForm}
                     multiline
                     onChange={(event: any) => {
+                        setLinkForm(false);
                         setLink(event.target.value);
                     }}
                 />
