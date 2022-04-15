@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 import { useState } from 'react';
 import { ColorSubmitButton } from './styles';
+import '../../App.css';
 
 export const NewPost = () => {
     const [link, setLink] = useState('');
@@ -27,18 +28,19 @@ export const NewPost = () => {
         setLink('');
         setPlatform('');
         setInvalidLink('');
+        setEmptyForm(false);
 
         const youtubeRegex = new RegExp(
-            /^<iframe\swidth="560" height="315"\ssrc="https:\/\/www\.youtube\.com\/embed\.*?[<\/iframe>]/gm
+            /^<iframe\swidth="560" height="315"\ssrc="https:\/\/www\.youtube\.com\/embed\/[^"\/<>]+"\stitle="[^"\/<>]+"\sframeborder="[^"\/<>]+"\sallow="[^"\/<>]+"\sallowfullscreen><\/iframe>$/gm
         );
         const instaRegex = new RegExp(
-            /^https:\/\/www\.instagram\.com\/.*\/$/gm
+            /^https:\/\/www\.instagram\.com\/p\/[^"\/<>]+$/gm
         );
         const twitterRegex = new RegExp(
-            /^<blockquote\sclass="twitter-tweet"><p lang="en" dir="ltr">.*<\/a><\/blockquote>\s<script async src="https:\/\/platform\.twitter\.com\/widgets\.js" charset="utf-8"><\/script>$/gm
+            /^<blockquote\sclass="twitter-tweet"><p lang="[^"\/<>]+" dir="ltr">[^"\/<>]+<\/p>[^"\/<>]+<a\shref="https:\/\/twitter\.com\/[^"\/<>]+\/status\/[^"\/<>]+">[^"\/<>]+<\/a><\/blockquote>\s<script async src="https:\/\/platform\.twitter\.com\/widgets\.js" charset="utf-8"><\/script>$/gm
         );
         const giphyRegex = new RegExp(
-            /^<iframe\ssrc="https:\/\/giphy\.com\/embed\/.*<\/iframe><p><a href=".*">via GIPHY<\/a><\/p>$/gm
+            /^<iframe\ssrc="https:\/\/giphy\.com\/embed\/.*<\/iframe><p><a href="https:\/\/giphy\.com\/[^"\/<>]+\/[^"\/<>]+">via GIPHY<\/a><\/p>$/gm
         );
 
         const postBody = {
@@ -73,7 +75,7 @@ export const NewPost = () => {
                 break;
             case 'instagram':
                 if (instaRegex.test(link)) {
-                    postBody.link = `<iframe src="${link}/embed?utm_source=ig_embedembed/" scrolling="no" data-instgrm-payload-id="instagram-media-payload-0" width: calc(100% - 2px) height="750" frameborder="0"></iframe>`;
+                    postBody.link = `<iframe src="${link}/embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
                     sendLink();
                     setNewLink(postBody.link);
                 } else {
@@ -118,7 +120,6 @@ export const NewPost = () => {
                 alignItems='center'
                 spacing={1.5}>
                 <h2>Embed a new post:</h2>
-                <h4></h4>
                 <p>{invalidLink}</p>
                 <Box sx={{ m: 1, minWidth: 120 }}>
                     <FormControl fullWidth>
@@ -138,8 +139,12 @@ export const NewPost = () => {
                                     setInvalidLink(
                                         'No embed link needed, just an instagram post link'
                                     );
+                                    setEmptyForm(false);
                                 } else {
-                                    setInvalidLink('');
+                                    setInvalidLink(
+                                        'Paste an embed link from the official site'
+                                    );
+                                    setEmptyForm(false);
                                 }
                             }}>
                             <MenuItem value={'youtube'}>YouTube</MenuItem>
