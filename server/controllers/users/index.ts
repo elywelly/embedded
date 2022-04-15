@@ -3,12 +3,6 @@ import Users from '../../models/Users';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    Users.all().then((user) => {
-        res.json(user);
-    });
-});
-
 router.get('/:id', (req, res) => {
     Users.id(req.params.id).then((user) => {
         res.json(user);

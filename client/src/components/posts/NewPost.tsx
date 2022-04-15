@@ -9,8 +9,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
-import { ColorSubmitButton } from './styles';
 import '../../App.css';
+import { ColorSubmitButton } from '../styles';
 
 export const NewPost = () => {
     const [link, setLink] = useState('');
@@ -44,7 +44,6 @@ export const NewPost = () => {
         );
 
         const postBody = {
-            user_id: 1, //TODO get rid of this in front end, just in controller
             link,
         };
 

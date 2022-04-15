@@ -23,6 +23,7 @@ router.get('/post/:id', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
+    req.session.user_id = req.body.user_id
     Posts.create(req.body).then((response) => {
         res.status(201).json(response);
     });

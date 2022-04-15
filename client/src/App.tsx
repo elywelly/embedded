@@ -1,12 +1,14 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Profile } from './components/profile/Profile';
-import { NewPost } from './components/profile/NewPost';
+import Login from './components/sessions/Login';
+import SignUp from './components/sessions/SignUp';
+import { NewPost } from './components/posts/NewPost';
 
 function App() {
     return (
         <div className='App'>
-            <Profile />
+            <Login />
+            <SignUp />
             <NewPost />
         </div>
     );
