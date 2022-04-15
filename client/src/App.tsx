@@ -1,8 +1,9 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/sessions/Login';
-import SignUp from './components/sessions/SignUp';
 import { NewPost } from './components/posts/NewPost';
+import SignUp from './components/users/SignUp';
+import { Copyright } from './components/Footer';
 
 function App() {
     return (
@@ -10,6 +11,7 @@ function App() {
             <Login />
             <SignUp />
             <NewPost />
+            <Copyright sx={{ mt: 5 }} />
         </div>
     );
 }

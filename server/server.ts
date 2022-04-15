@@ -6,6 +6,7 @@ const pgSession = require('connect-pg-simple')(expressSession);
 const db = require('./database/db');
 
 // middleware import
+const errorHandler = require('./middleware/errorHandler');
 const logger = require('./middleware/logger');
 
 // controller import
@@ -55,7 +56,9 @@ app.get("/api/test", (req: Request<any, any, any, any>, res: Response<any>) => {
       res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
     });
   }
-  
+
+  app.use(errorHandler);
+
   app.listen(+PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });

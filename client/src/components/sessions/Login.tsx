@@ -11,36 +11,47 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props: any) {
-    return (
-        <Typography
-            variant='body2'
-            color='text.secondary'
-            align='center'
-            {...props}>
-            {'Copyright © '}
-            <Link
-                color='inherit'
-                href='https://embedded-the-app.herokuapp.com/'>
-                Embedded
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import { useState } from 'react';
+import axios from 'axios';
 
 const theme = createTheme();
 
 export default function Login() {
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [errorDisplay, seterrorDisplay] = useState('');
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        const body = {
             username: data.get('username'),
             password: data.get('password'),
-        });
+        };
+
+        let error = null;
+        if (body.username === '') {
+            setUsernameError(true);
+            seterrorDisplay('Username is required');
+            error = 'error';
+        } else if (body.password === '') {
+            setPasswordError(true);
+            seterrorDisplay('Password is required');
+            error = 'error';
+        }
+
+        if (!error) {
+            const newUserSession = async () => {
+                try {
+                    const response = await axios.post(`/api/sessions`, body);
+                    console.log('success');
+                    //redirect to page
+                } catch (err: any) {
+                    seterrorDisplay(err.response.data.message);
+                }
+            };
+            newUserSession();
+        }
     };
 
     return (
@@ -58,12 +69,19 @@ export default function Login() {
                     <Typography component='h1' variant='h5'>
                         Login
                     </Typography>
+                    <Typography
+                        variant='subtitle1'
+                        gutterBottom
+                        component='div'>
+                        {errorDisplay}
+                    </Typography>
                     <Box
                         component='form'
                         onSubmit={handleSubmit}
                         noValidate
                         sx={{ mt: 1 }}>
                         <TextField
+                            error={usernameError}
                             margin='normal'
                             required
                             fullWidth
@@ -72,8 +90,13 @@ export default function Login() {
                             name='username'
                             autoComplete='username'
                             autoFocus
+                            onChange={() => {
+                                seterrorDisplay('');
+                                setUsernameError(false);
+                            }}
                         />
                         <TextField
+                            error={passwordError}
                             margin='normal'
                             required
                             fullWidth
@@ -82,6 +105,10 @@ export default function Login() {
                             type='password'
                             id='password'
                             autoComplete='current-password'
+                            onChange={() => {
+                                seterrorDisplay('');
+                                setPasswordError(false);
+                            }}
                         />
                         <FormControlLabel
                             control={
@@ -105,7 +132,6 @@ export default function Login() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );

@@ -119,7 +119,6 @@ export const NewPost = () => {
                 alignItems='center'
                 spacing={1.5}>
                 <h2>Embed a new post:</h2>
-                <p>{invalidLink}</p>
                 <Box sx={{ m: 1, minWidth: 120 }}>
                     <FormControl fullWidth>
                         <InputLabel id='demo-simple-select-autowidth-label'>
@@ -141,7 +140,7 @@ export const NewPost = () => {
                                     setEmptyForm(false);
                                 } else {
                                     setInvalidLink(
-                                        'Paste an embed link from the official site'
+                                        'Choose embed links from official sites'
                                     );
                                     setEmptyForm(false);
                                 }
@@ -160,6 +159,7 @@ export const NewPost = () => {
                     rows={4}
                     error={linkForm}
                     multiline
+                    helperText={invalidLink}
                     onChange={(event: any) => {
                         setLinkForm(false);
                         setLink(event.target.value);
