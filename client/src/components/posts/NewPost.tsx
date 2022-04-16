@@ -14,21 +14,19 @@ import { ColorSubmitButton } from '../styles';
 
 export const NewPost = () => {
     const [link, setLink] = useState('');
-    const [newlink, setNewLink] = useState('');
+    const [validLink, setValidLink] = useState('');
     const [platform, setPlatform] = useState('');
     const [newplatform, setNewPlatform] = useState('');
-    const [invalidLink, setInvalidLink] = useState('');
-    const [emptyForm, setEmptyForm] = useState(false);
-    const [linkForm, setLinkForm] = useState(false);
-    // conditional to add to db or not based on iframe code
-    // if section innerHTML empty to say issue with link, if not render
+    const [invalidLinkText, setInvalidLinkText] = useState('');
+    const [emptyFormError, setEmptyFormError] = useState(false);
+    const [linkFormError, setLinkFormError] = useState(false);
 
     const handleSubmit = async () => {
         setNewPlatform(platform);
         setLink('');
         setPlatform('');
-        setInvalidLink('');
-        setEmptyForm(false);
+        setInvalidLinkText('');
+        setEmptyFormError(false);
 
         const youtubeRegex = new RegExp(
             /^<iframe\swidth="560" height="315"\ssrc="https:\/\/www\.youtube\.com\/embed\/[^"\/<>]+"\stitle="[^"\/<>]+"\sframeborder="[^"\/<>]+"\sallow="[^"\/<>]+"\sallowfullscreen><\/iframe>$/gm
@@ -57,17 +55,17 @@ export const NewPost = () => {
         };
 
         if (link == '' || link == ' ') {
-            setLinkForm(true);
+            setLinkFormError(true);
         }
 
         switch (platform) {
             case 'youtube':
                 if (youtubeRegex.test(link)) {
                     postBody.link = link;
-                    setNewLink(postBody.link);
+                    setValidLink(postBody.link);
                     sendLink();
                 } else {
-                    setInvalidLink(
+                    setInvalidLinkText(
                         "Invalid YouTube embed code, please use YouTube's embed code as is"
                     );
                 }
@@ -76,9 +74,9 @@ export const NewPost = () => {
                 if (instaRegex.test(link)) {
                     postBody.link = `<iframe src="${link}/embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
                     sendLink();
-                    setNewLink(postBody.link);
+                    setValidLink(postBody.link);
                 } else {
-                    setInvalidLink(
+                    setInvalidLinkText(
                         "Invalid Instagram post link, please use the insta's post link as is without a '/' at the end"
                     );
                 }
@@ -87,9 +85,9 @@ export const NewPost = () => {
                 if (twitterRegex.test(link)) {
                     postBody.link = link;
                     sendLink();
-                    setNewLink(postBody.link);
+                    setValidLink(postBody.link);
                 } else {
-                    setInvalidLink(
+                    setInvalidLinkText(
                         "Invalid Twitter embed code, please use Twitter's embed code as is"
                     );
                 }
@@ -98,16 +96,16 @@ export const NewPost = () => {
                 if (giphyRegex.test(link)) {
                     postBody.link = link.split('<p>')[0];
                     sendLink();
-                    setNewLink(postBody.link);
+                    setValidLink(postBody.link);
                 } else {
-                    setInvalidLink(
+                    setInvalidLinkText(
                         "Invalid Giphy embed code, please use Giphy's embed iframe code as is"
                     );
                 }
                 break;
             default:
-                setEmptyForm(true);
-                setInvalidLink('Platform required');
+                setEmptyFormError(true);
+                setInvalidLinkText('Platform required');
         }
     };
 
@@ -129,20 +127,20 @@ export const NewPost = () => {
                             id='demo-simple-select-autowidth'
                             label='Platform Origin'
                             value={platform}
-                            error={emptyForm}
+                            error={emptyFormError}
                             onChange={(event: any) => {
                                 setPlatform(event.target.value);
-                                setLinkForm(false);
+                                setLinkFormError(false);
                                 if (event.target.value == 'instagram') {
-                                    setInvalidLink(
+                                    setInvalidLinkText(
                                         'No embed link needed, just an instagram post link'
                                     );
-                                    setEmptyForm(false);
+                                    setEmptyFormError(false);
                                 } else {
-                                    setInvalidLink(
+                                    setInvalidLinkText(
                                         'Choose embed links from official sites'
                                     );
-                                    setEmptyForm(false);
+                                    setEmptyFormError(false);
                                 }
                             }}>
                             <MenuItem value={'youtube'}>YouTube</MenuItem>
@@ -157,11 +155,11 @@ export const NewPost = () => {
                     label='Embed Link'
                     value={link}
                     rows={4}
-                    error={linkForm}
+                    error={linkFormError}
                     multiline
-                    helperText={invalidLink}
+                    helperText={invalidLinkText}
                     onChange={(event: any) => {
-                        setLinkForm(false);
+                        setLinkFormError(false);
                         setLink(event.target.value);
                     }}
                 />
@@ -169,7 +167,7 @@ export const NewPost = () => {
                     Submit
                 </ColorSubmitButton>
                 <h3>Preview:</h3>
-                <section dangerouslySetInnerHTML={{ __html: newlink }} />
+                <section dangerouslySetInnerHTML={{ __html: validLink }} />
             </Stack>
         </div>
     );

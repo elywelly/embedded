@@ -17,6 +17,8 @@ import axios from 'axios';
 const theme = createTheme();
 
 export default function Login() {
+    const history = useHistory();
+
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [errorDisplay, seterrorDisplay] = useState('');
@@ -43,9 +45,7 @@ export default function Login() {
         if (!error) {
             const newUserSession = async () => {
                 try {
-                    const response = await axios.post(`/api/sessions`, body);
-                    console.log('success');
-                    //redirect to page
+                    const response = await axios.post(`/api/sessions/`, body);
                 } catch (err: any) {
                     seterrorDisplay(err.response.data.message);
                 }

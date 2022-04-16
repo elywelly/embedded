@@ -1,5 +1,5 @@
 const express = require('express');
-const Users = require('../../models/Users');
+import Users from '../../models/Users';
 const bcrypt = require('bcrypt');
 
 const router = express.Router();
@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
 
     Users.username(username)
         .then((user) => {
+
             const valid = user && bcrypt.compareSync(password, user.password);
 
             if (valid) {
@@ -27,7 +28,7 @@ router.post('/', (req, res) => {
                     username: user.username,
                 });
             } else {
-                incorrectResponse(res);
+                incorrectResponse(res)
             }
         })
         .catch((error) => {

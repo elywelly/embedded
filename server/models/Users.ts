@@ -10,7 +10,9 @@ const Users = {
     username: (username) => {
         const query = 'SELECT * FROM users WHERE username = $1';
         return db.query(query, [username]).then((response) => {
-            return response.rows;
+            return response.rows && response.rows.length > 0
+                ? response.rows[0]
+                : null;
         });
     },
     email: (email) => {

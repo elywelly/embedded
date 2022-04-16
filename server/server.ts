@@ -43,7 +43,7 @@ app.use(express.json());
 app.use('/api/users/', usersController);
 app.use('/api/posts/', postsController);
 app.use('/api/post_ratings/', postRatingsController);
-app.use('/api/sessions', sessionsController);
+app.use('/api/sessions/', sessionsController);
 
 app.get("/api/test", (req: Request<any, any, any, any>, res: Response<any>) => {
     res.json({ date: new Date().toString() });
