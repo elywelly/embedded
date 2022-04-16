@@ -1,8 +1,17 @@
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import ApplicationContext from '../../application-context';
 
 export function Logout() {
-    axios.delete('/api/sessions').then((res) => {});
+    const [currentUser, setCurrentUser] = useContext(ApplicationContext);
+
+    const navigate = useNavigate();
+
+    axios.delete('/api/sessions').then((res) => {
+        setCurrentUser(null);
+        navigate('/login');
+    });
 
     return <Link to='/' />;
 }

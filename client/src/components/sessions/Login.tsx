@@ -11,13 +11,17 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import ApplicationContext from '../../application-context';
 
 const theme = createTheme();
 
 export default function Login() {
-    const history = useHistory();
+    const [currentUser, setCurrentUser] = useContext(ApplicationContext);
+
+    const navigate = useNavigate();
 
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -46,6 +50,8 @@ export default function Login() {
             const newUserSession = async () => {
                 try {
                     const response = await axios.post(`/api/sessions/`, body);
+                    setCurrentUser(response.data);
+                    navigate('/');
                 } catch (err: any) {
                     seterrorDisplay(err.response.data.message);
                 }
