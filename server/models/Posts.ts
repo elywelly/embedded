@@ -27,7 +27,7 @@ const Posts = {
                 return response.rows ? response.rows[0] : {};
             });
     },
-    delete: (id) => {
+    delete: ({id}) => {
         const query = `DELETE FROM posts WHERE id = $1`;
         return db.query(query, [id]);
     },

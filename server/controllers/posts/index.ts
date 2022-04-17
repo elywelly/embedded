@@ -35,8 +35,8 @@ router.post('/create', (req, res) => {
     });
 });
 
-router.delete('/delete/:id', (req, res) => {
-    Posts.delete(req.params.id).then((response) => {
+router.delete('/delete', (req, res) => {
+    Posts.delete(req.body.body).then((response) => {
         if (response) {
             res.json({ message: "Post deleted" });
           }

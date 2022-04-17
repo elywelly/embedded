@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { MouseEvent, useContext, useEffect, useState } from 'react';
 import ApplicationContext from '../../application-context';
 
 export const Profile = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [userLinks, setUserLinks] = useState<any>([]);
+    const [buttonId, setButtonId] = useState<any>(0);
 
     // TODO
     // rating attached to each card (post), create rating on change
@@ -16,7 +17,26 @@ export const Profile = () => {
             setUserLinks(res.data);
         };
         getData();
-    }, []);
+    }, [buttonId]);
+
+    const handleDelete = (e: any) => {
+        setButtonId(e.target.value);
+        const body = {
+            id: e.target.value,
+        };
+
+        const deletePost = async () => {
+            try {
+                const res = await axios.delete(`/api/posts/delete`, {
+                    data: { body },
+                });
+                console.log(res.statusText);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        deletePost();
+    };
 
     return (
         <div>
@@ -63,15 +83,26 @@ export const Profile = () => {
                                         {userLinks.map(
                                             (link: {
                                                 user_id: number;
-                                                post_id: number;
+                                                id: number;
                                                 link: string;
                                             }) => {
                                                 return (
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: link.link,
-                                                        }}
-                                                    />
+                                                    <div className='flex flex-col justify-center gap-5'>
+                                                        <div
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: link.link,
+                                                            }}
+                                                        />
+                                                        <button
+                                                            value={link.id}
+                                                            onClick={
+                                                                handleDelete
+                                                            }
+                                                            type='button'
+                                                            className='py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>
+                                                            -
+                                                        </button>
+                                                    </div>
                                                 );
                                             }
                                         )}
