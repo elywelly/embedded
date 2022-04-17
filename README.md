@@ -36,3 +36,5 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 ![Entity Relationship Diagram](/assets/erdd.png)
 
 ## Approach
+
+### Credits

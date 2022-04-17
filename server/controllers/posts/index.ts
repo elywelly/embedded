@@ -10,7 +10,13 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:user_id', (req, res) => {
+router.get('/profile', (req, res) => {
+    Posts.user_id(req.session.user_id).then((userPosts) => {
+        res.json(userPosts);
+    });
+});
+
+router.get('/user/:user_id', (req, res) => {
     Posts.user_id(req.params.user_id).then((userPosts) => {
         res.json(userPosts);
     });
@@ -23,7 +29,7 @@ router.get('/post/:id', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-    req.session.user_id = req.body.user_id
+    req.body["user_id"] = req.session.user_id
     Posts.create(req.body).then((response) => {
         res.status(201).json(response);
     });

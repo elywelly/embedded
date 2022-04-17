@@ -1,5 +1,4 @@
 import {
-    Stack,
     TextField,
     InputLabel,
     Select,
@@ -9,8 +8,8 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../App.css';
-import { ColorSubmitButton } from '../styles';
 
 export const NewPost = () => {
     const [link, setLink] = useState('');
@@ -20,6 +19,7 @@ export const NewPost = () => {
     const [invalidLinkText, setInvalidLinkText] = useState('');
     const [emptyFormError, setEmptyFormError] = useState(false);
     const [linkFormError, setLinkFormError] = useState(false);
+    const [previewText, setPreviewText] = useState(false);
 
     const handleSubmit = async () => {
         setNewPlatform(platform);
@@ -49,6 +49,7 @@ export const NewPost = () => {
             try {
                 const resPost = await axios.post(`/api/posts/create`, postBody);
                 console.log(resPost.statusText);
+                setPreviewText(true);
             } catch (err) {
                 console.error(err);
             }
@@ -68,6 +69,7 @@ export const NewPost = () => {
                     setInvalidLinkText(
                         "Invalid YouTube embed code, please use YouTube's embed code as is"
                     );
+                    setLinkFormError(true);
                 }
                 break;
             case 'instagram':
@@ -79,6 +81,7 @@ export const NewPost = () => {
                     setInvalidLinkText(
                         "Invalid Instagram post link, please use the insta's post link as is without a '/' at the end"
                     );
+                    setLinkFormError(true);
                 }
                 break;
             case 'twitter':
@@ -90,6 +93,7 @@ export const NewPost = () => {
                     setInvalidLinkText(
                         "Invalid Twitter embed code, please use Twitter's embed code as is"
                     );
+                    setLinkFormError(true);
                 }
                 break;
             case 'giphy':
@@ -101,6 +105,7 @@ export const NewPost = () => {
                     setInvalidLinkText(
                         "Invalid Giphy embed code, please use Giphy's embed iframe code as is"
                     );
+                    setLinkFormError(true);
                 }
                 break;
             default:
@@ -111,64 +116,119 @@ export const NewPost = () => {
 
     return (
         <div>
-            <Stack
-                direction='column'
-                justifyContent='space-around'
-                alignItems='center'
-                spacing={1.5}>
-                <h2>Embed a new post:</h2>
-                <Box sx={{ m: 1, minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id='demo-simple-select-autowidth-label'>
-                            Platform Origin
-                        </InputLabel>
-                        <Select
-                            labelId='demo-simple-select-autowidth-label'
-                            id='demo-simple-select-autowidth'
-                            label='Platform Origin'
-                            value={platform}
-                            error={emptyFormError}
-                            onChange={(event: any) => {
-                                setPlatform(event.target.value);
-                                setLinkFormError(false);
-                                if (event.target.value == 'instagram') {
-                                    setInvalidLinkText(
-                                        'No embed link needed, just an instagram post link'
-                                    );
-                                    setEmptyFormError(false);
-                                } else {
-                                    setInvalidLinkText(
-                                        'Choose embed links from official sites'
-                                    );
-                                    setEmptyFormError(false);
-                                }
-                            }}>
-                            <MenuItem value={'youtube'}>YouTube</MenuItem>
-                            <MenuItem value={'instagram'}>Instagram</MenuItem>
-                            <MenuItem value={'twitter'}>Twitter</MenuItem>
-                            <MenuItem value={'giphy'}>Giphy</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <TextField
-                    id='outlined-multiline-static'
-                    label='Embed Link'
-                    value={link}
-                    rows={4}
-                    error={linkFormError}
-                    multiline
-                    helperText={invalidLinkText}
-                    onChange={(event: any) => {
-                        setLinkFormError(false);
-                        setLink(event.target.value);
-                    }}
-                />
-                <ColorSubmitButton variant='contained' onClick={handleSubmit}>
-                    Submit
-                </ColorSubmitButton>
-                <h3>Preview:</h3>
-                <section dangerouslySetInnerHTML={{ __html: validLink }} />
-            </Stack>
+            <div className='bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden'>
+                <div className='px-4 py-8 sm:px-10'>
+                    <div className='relative mt-6'>
+                        <div className='absolute inset-0 flex items-center'>
+                            <div className='w-full border-t border-gray-300'></div>
+                        </div>
+                        <div className='relative flex justify-center text-sm leading-5'>
+                            <span className='px-2 text-gray-500 bg-white'>
+                                Embed a new post
+                            </span>
+                        </div>
+                    </div>
+                    <div className='mt-6'>
+                        <div className='w-full space-y-6'>
+                            <div className='w-full'>
+                                <div className=' relative '>
+                                    <Box sx={{ m: 1, minWidth: 120 }}>
+                                        <FormControl fullWidth>
+                                            <InputLabel id='demo-simple-select-autowidth-label'>
+                                                Platform Origin
+                                            </InputLabel>
+                                            <Select
+                                                labelId='demo-simple-select-autowidth-label'
+                                                id='demo-simple-select-autowidth'
+                                                label='Platform Origin'
+                                                value={platform}
+                                                error={emptyFormError}
+                                                onChange={(event: any) => {
+                                                    setPlatform(
+                                                        event.target.value
+                                                    );
+                                                    setLinkFormError(false);
+                                                    if (
+                                                        event.target.value ==
+                                                        'instagram'
+                                                    ) {
+                                                        setInvalidLinkText(
+                                                            'No embed link needed, just an instagram post link'
+                                                        );
+                                                        setEmptyFormError(
+                                                            false
+                                                        );
+                                                    } else {
+                                                        setInvalidLinkText(
+                                                            'Choose embed links from official sites'
+                                                        );
+                                                        setEmptyFormError(
+                                                            false
+                                                        );
+                                                    }
+                                                }}>
+                                                <MenuItem value={'youtube'}>
+                                                    YouTube
+                                                </MenuItem>
+                                                <MenuItem value={'instagram'}>
+                                                    Instagram
+                                                </MenuItem>
+                                                <MenuItem value={'twitter'}>
+                                                    Twitter
+                                                </MenuItem>
+                                                <MenuItem value={'giphy'}>
+                                                    Giphy
+                                                </MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
+                            </div>
+                            <div className='w-full'>
+                                <div className='relative '>
+                                    <Box sx={{ m: 1, minWidth: 120 }}>
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                id='outlined-multiline-static'
+                                                label='Embed Link'
+                                                value={link}
+                                                error={linkFormError}
+                                                helperText={invalidLinkText}
+                                                onChange={(event: any) => {
+                                                    setLinkFormError(false);
+                                                    setLink(event.target.value);
+                                                }}
+                                            />
+                                        </FormControl>
+                                    </Box>
+                                </div>
+                            </div>
+                            <div>
+                                <span className='block w-full rounded-md shadow-sm'>
+                                    <button
+                                        onClick={handleSubmit}
+                                        type='button'
+                                        className='py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
+                                        Submit
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10'>
+                    <p className='text-xs leading-5 text-gray-500'>Preview:</p>
+                    <div
+                        className='flex justify-center items-center h-screen"'
+                        dangerouslySetInnerHTML={{ __html: validLink }}
+                    />
+                    {previewText ? (
+                        <Link to='/profile'>Click to view on Profile</Link>
+                    ) : (
+                        ''
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

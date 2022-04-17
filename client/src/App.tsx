@@ -8,8 +8,10 @@ import { Profile } from './components/profile/Profile';
 import { useEffect, useState } from 'react';
 import { fetchSession } from './components/sessions/sessions';
 import ApplicationContext from './application-context';
-import { Logout } from './components/sessions/Logout';
 import Container from './components/Container';
+import { Logout } from './components/sessions/Logout';
+import { SearchUser } from './components/users/SearchUser';
+import { UserProfileSearchResult } from './components/users/UserProfileSearchResult';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -31,10 +33,15 @@ function App() {
                     value={[currentUser, setCurrentUser]}>
                     <Container />
                     <Routes>
-                        <Route path='/' element={<Profile />} />
+                        {currentUser ? (
+                            <Route path='/' element={<Profile />} />
+                        ) : (
+                            <Route path='/' element={<Login />} />
+                        )}
                         <Route path='login' element={<Login />} />
                         <Route path='signup' element={<SignUp />} />
                         <Route path='embed' element={<NewPost />} />
+                        <Route path='search' element={<SearchUser />} />
                         <Route path='profile' element={<Profile />} />
                         <Route path='logout' element={<Logout />} />
                         <Route path='*' element={<p>Page not found!</p>} />

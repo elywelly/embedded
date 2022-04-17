@@ -1,0 +1,106 @@
+import { TextField, Box, FormControl } from '@mui/material';
+import axios from 'axios';
+import { useState } from 'react';
+import '../../App.css';
+import { UserProfileSearchResult } from './UserProfileSearchResult';
+
+export const SearchUser = () => {
+    const [username, setUsername] = useState('');
+    const [enteredUsername, setEnteredUsername] = useState('');
+    const [invalidUserText, setinvalidUserText] = useState('');
+    const [userFormError, setUserFormError] = useState(false);
+    const [foundSearch, setFoundSearch] = useState(false);
+    const [searchResult, setSearchResult] = useState({});
+
+    const handleSubmit = () => {
+        setEnteredUsername(username);
+
+        let error = null;
+        if (username == '' || username == ' ') {
+            setUserFormError(true);
+            setinvalidUserText('Username cannot be empty');
+            error = 'error';
+        }
+
+        if (!error) {
+            const getData = async () => {
+                const res = await axios.get(`/api/users/profile/${username}`);
+                if (res.data === null) {
+                    setUserFormError(true);
+                    setinvalidUserText('User does not exist');
+                } else {
+                    setFoundSearch(true);
+                    setSearchResult(res.data);
+                }
+            };
+            getData();
+        }
+    };
+
+    return (
+        <>
+            <div>
+                <div className='bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden'>
+                    <div className='px-4 py-8 sm:px-10'>
+                        <div className='relative mt-6'>
+                            <div className='absolute inset-0 flex items-center'>
+                                <div className='w-full border-t border-gray-300'></div>
+                            </div>
+                            <div className='relative flex justify-center text-sm leading-5'>
+                                <span className='px-2 text-gray-500 bg-white'>
+                                    SearchUser
+                                </span>
+                            </div>
+                        </div>
+                        <div className='mt-6'>
+                            <div className='w-full space-y-6'>
+                                <div className='w-full'>
+                                    <div className='relative '>
+                                        <Box sx={{ m: 1, minWidth: 120 }}>
+                                            <FormControl fullWidth>
+                                                <TextField
+                                                    id='outlined-multiline-static'
+                                                    label='Username'
+                                                    value={username}
+                                                    error={userFormError}
+                                                    helperText={invalidUserText}
+                                                    onChange={(event: any) => {
+                                                        setinvalidUserText('');
+                                                        setUserFormError(false);
+                                                        setUsername(
+                                                            event.target.value
+                                                        );
+                                                    }}
+                                                />
+                                            </FormControl>
+                                        </Box>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className='block w-full rounded-md shadow-sm'>
+                                        <button
+                                            onClick={handleSubmit}
+                                            type='button'
+                                            className='py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg '>
+                                            Search
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10'>
+                        <p className='text-xs leading-5 text-gray-500'>
+                            User not found? Get them to join to Embedded!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {foundSearch ? (
+                <UserProfileSearchResult searchResult={searchResult} />
+            ) : (
+                ''
+            )}
+        </>
+    );
+};

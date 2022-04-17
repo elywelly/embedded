@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -11,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import axios from 'axios';
+import { ColorSubmitButton } from '../styles';
 
 const theme = createTheme();
 
@@ -136,13 +136,13 @@ export default function SignUp() {
                                 />
                             </Grid>
                         </Grid>
-                        <Button
+                        <ColorSubmitButton
                             type='submit'
                             fullWidth
                             variant='contained'
                             sx={{ mt: 3, mb: 2 }}>
                             Sign Up
-                        </Button>
+                        </ColorSubmitButton>
                         <Grid container justifyContent='flex-end'>
                             <Grid item>
                                 <Link href='#' variant='body2'>

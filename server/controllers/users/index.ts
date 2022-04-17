@@ -12,8 +12,8 @@ router.get('/', isLoggedIn, (req, res) => {
     });
 });
 
-router.get('/:username', isLoggedIn, (req, res) => {
-    Users.username(req.session.username).then((user) => {
+router.get('/profile/:username', isLoggedIn, (req, res) => {
+    Users.profile_username(req.params.username).then((user) => {
         res.json(user);
     });
 });

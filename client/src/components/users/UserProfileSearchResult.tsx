@@ -1,22 +1,23 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import ApplicationContext from '../../application-context';
 
-export const Profile = () => {
+export const UserProfileSearchResult = (props: any) => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
+    const [searchedUsed, setSearchedUser] = useState(props);
     const [userLinks, setUserLinks] = useState<any>([]);
 
-    // TODO
-    // rating attached to each card (post), create rating on change
-    // update rating on change
-
     useEffect(() => {
+        setSearchedUser(props);
         const getData = async () => {
-            const res = await axios.get(`api/posts/profile`);
+            const res = await axios.get(
+                `api/posts/user/${props.searchResult.id}`
+            );
+            console.log(res.data);
             setUserLinks(res.data);
         };
         getData();
-    }, []);
+    }, [props]);
 
     return (
         <div>
@@ -51,7 +52,7 @@ export const Profile = () => {
                             <div className='px-6'>
                                 <div className='text-center mt-12'>
                                     <h3 className='text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2'>
-                                        @{currentUser.username}
+                                        @{props.searchResult.username}
                                     </h3>
                                     <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>
                                         <i className='fas fa-map-marker-alt mr-2 text-lg text-gray-500'></i>{' '}
