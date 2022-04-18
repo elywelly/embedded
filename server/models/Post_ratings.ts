@@ -16,7 +16,6 @@ const Post_ratings = {
     post_id: ({post_id, user_id}) => {
         const query = `SELECT rating FROM post_ratings WHERE post_id = $1 AND user_id = $2`;
         return db.query(query, [post_id, user_id]).then((response) => {
-            console.log(response, 'model response')
             return response.rows && response.rows.length > 0
                 ? response.rows[0]
                 : null;

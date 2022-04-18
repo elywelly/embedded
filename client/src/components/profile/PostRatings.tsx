@@ -11,7 +11,6 @@ export default function PostRatings(props: any) {
                 const res = await axios.get(
                     `api/post_ratings/post/${props.link.id}`
                 );
-                console.log(res.data.rating);
                 setValue(res.data ? res.data.rating : null);
             } catch (err) {
                 console.error(err);
@@ -24,8 +23,6 @@ export default function PostRatings(props: any) {
         event: any,
         newValue: SetStateAction<number | null>
     ) => {
-        console.log(value, 'value');
-        console.log(newValue, 'newValue');
         const createBody = {
             post_id: props.link.id,
             rating: newValue,

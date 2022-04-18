@@ -28,10 +28,8 @@ export const UserProfileSearchResult = (props: any) => {
         const addPost = async () => {
             try {
                 const res = await axios.post(`/api/posts/create`, body);
-                console.log(res.statusText, 'status');
                 setActionMessage('Successfully added to your profile');
             } catch (err) {
-                console.error(err, 'error adding');
                 setActionMessage(
                     'Error adding to your profile, please try again'
                 );

@@ -30,10 +30,8 @@ export const Profile = () => {
                 });
                 setActionMessage('Successfully deleted from profile');
                 getData();
-                console.log(res.statusText);
             } catch (err) {
                 setActionMessage('Delete error, please try again');
-                console.error(err);
             }
         };
         deletePost();
@@ -47,7 +45,7 @@ export const Profile = () => {
                         className='absolute top-0 w-full h-full bg-center bg-cover'
                         style={{
                             backgroundImage:
-                                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
+                                "url('https://raw.githubusercontent.com/elywelly/embedded/master/assets/background.avif')",
                         }}></div>
                     <div
                         className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden'

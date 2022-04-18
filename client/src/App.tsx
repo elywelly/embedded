@@ -13,6 +13,7 @@ import { Logout } from './components/sessions/Logout';
 import { SearchUser } from './components/users/SearchUser';
 import { UserProfileSearchResult } from './components/users/UserProfileSearchResult';
 import PageError from './components/users/PageError';
+import About from './About';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -37,9 +38,10 @@ function App() {
                         {currentUser ? (
                             <Route path='/' element={<Profile />} />
                         ) : (
-                            <Route path='/' element={<Login />} />
+                            <Route path='/' element={<About />} />
                         )}
                         <Route path='login' element={<Login />} />
+                        <Route path='about' element={<About />} />
                         <Route path='signup' element={<SignUp />} />
                         <Route path='embed' element={<NewPost />} />
                         <Route path='search' element={<SearchUser />} />

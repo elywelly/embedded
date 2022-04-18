@@ -48,7 +48,6 @@ export const NewPost = () => {
         const sendLink = async () => {
             try {
                 const resPost = await axios.post(`/api/posts/create`, postBody);
-                console.log(resPost.statusText);
                 setPreviewText(true);
             } catch (err) {
                 console.error(err);
