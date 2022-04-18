@@ -13,6 +13,10 @@ router.get('/', isLoggedIn, (req, res) => {
 });
 
 router.get('/profile/:username', isLoggedIn, (req, res) => {
+    if (req.params.username != req.session.username) {
+        res.status(403).json({message: 'Not allowed'})
+        return
+    }
     Users.profile_username(req.params.username).then((user) => {
         res.json(user);
     });

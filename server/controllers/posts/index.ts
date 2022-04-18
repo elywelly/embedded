@@ -1,6 +1,6 @@
 const express = require('express');
 import Posts from '../../models/Posts';
-
+const isLoggedIn = require('../../middleware/isLoggedIn');
 
 const router = express.Router();
 
@@ -10,13 +10,17 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/profile', (req, res) => {
+router.get('/profile', isLoggedIn, (req, res) => {
     Posts.user_id(req.session.user_id).then((userPosts) => {
         res.json(userPosts);
     });
 });
 
-router.get('/user/:user_id', (req, res) => {
+router.get('/user/:user_id', isLoggedIn, (req, res) => {
+    if (req.params.user_id != req.session.user_id) {
+        res.status(403).json({message: 'Not allowed'})
+        return
+    }
     Posts.user_id(req.params.user_id).then((userPosts) => {
         res.json(userPosts);
     });

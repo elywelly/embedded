@@ -2,6 +2,7 @@ import { Rating } from '@mui/material';
 import axios from 'axios';
 import { useContext, useState, useEffect } from 'react';
 import ApplicationContext from '../../application-context';
+import PostRatings from '../profile/PostRatings';
 
 export const UserProfileSearchResult = (props: any) => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
@@ -111,18 +112,8 @@ export const UserProfileSearchResult = (props: any) => {
                                                                 className='py-1 px-3  bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>
                                                                 ADD
                                                             </button>
-                                                            <Rating
-                                                                className='ml-auto'
-                                                                name='simple-controlled'
-                                                                value={value}
-                                                                onChange={(
-                                                                    event,
-                                                                    newValue
-                                                                ) => {
-                                                                    setValue(
-                                                                        newValue
-                                                                    );
-                                                                }}
+                                                            <PostRatings
+                                                                link={link}
                                                             />
                                                         </div>
                                                     </div>
