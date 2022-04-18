@@ -12,6 +12,7 @@ import Container from './components/Container';
 import { Logout } from './components/sessions/Logout';
 import { SearchUser } from './components/users/SearchUser';
 import { UserProfileSearchResult } from './components/users/UserProfileSearchResult';
+import PageError from './components/users/PageError';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -44,7 +45,7 @@ function App() {
                         <Route path='search' element={<SearchUser />} />
                         <Route path='profile' element={<Profile />} />
                         <Route path='logout' element={<Logout />} />
-                        <Route path='*' element={<p>Page not found!</p>} />
+                        <Route path='*' element={<PageError />} />
                     </Routes>
                 </ApplicationContext.Provider>
             </BrowserRouter>
