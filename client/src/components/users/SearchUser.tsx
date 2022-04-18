@@ -9,15 +9,13 @@ export const SearchUser = () => {
     const [enteredUsername, setEnteredUsername] = useState('');
     const [invalidUserText, setinvalidUserText] = useState('');
     const [userFormError, setUserFormError] = useState(false);
-    const [foundSearch, setFoundSearch] = useState(false);
-    const [searchResult, setSearchResult] = useState({});
+    const [searchResult, setSearchResult] = useState(null);
 
     const handleSubmit = () => {
         setEnteredUsername(username);
 
         let error = null;
         if (username == '' || username == ' ') {
-            setUserFormError(true);
             setinvalidUserText('Username cannot be empty');
             error = 'error';
         }
@@ -26,10 +24,9 @@ export const SearchUser = () => {
             const getData = async () => {
                 const res = await axios.get(`/api/users/profile/${username}`);
                 if (res.data === null) {
-                    setUserFormError(true);
                     setinvalidUserText('User does not exist');
+                    setUsername('');
                 } else {
-                    setFoundSearch(true);
                     setSearchResult(res.data);
                 }
             };
@@ -62,7 +59,10 @@ export const SearchUser = () => {
                                                     id='outlined-multiline-static'
                                                     label='Username'
                                                     value={username}
-                                                    error={userFormError}
+                                                    error={
+                                                        invalidUserText.length >
+                                                        0
+                                                    }
                                                     helperText={invalidUserText}
                                                     onChange={(event: any) => {
                                                         setinvalidUserText('');
@@ -96,10 +96,8 @@ export const SearchUser = () => {
                     </div>
                 </div>
             </div>
-            {foundSearch ? (
+            {searchResult !== null && (
                 <UserProfileSearchResult searchResult={searchResult} />
-            ) : (
-                ''
             )}
         </>
     );

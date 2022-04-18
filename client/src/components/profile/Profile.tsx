@@ -1,15 +1,13 @@
 import axios from 'axios';
-import { MouseEvent, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ApplicationContext from '../../application-context';
+import PostRatings from './PostRatings';
 
 export const Profile = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [userLinks, setUserLinks] = useState<any>([]);
     const [buttonId, setButtonId] = useState<any>(0);
-
-    // TODO
-    // rating attached to each card (post), create rating on change
-    // update rating on change
+    const [actionMessage, setActionMessage] = useState<any>('');
 
     useEffect(() => {
         const getData = async () => {
@@ -30,8 +28,10 @@ export const Profile = () => {
                 const res = await axios.delete(`/api/posts/delete`, {
                     data: { body },
                 });
+                setActionMessage('Successfully deleted from profile');
                 console.log(res.statusText);
             } catch (err) {
+                setActionMessage('Delete error, please try again');
                 console.error(err);
             }
         };
@@ -70,16 +70,19 @@ export const Profile = () => {
                         <div className='relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64'>
                             <div className='px-6'>
                                 <div className='text-center mt-12'>
-                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2'>
+                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 uppercase'>
                                         @{currentUser.username}
                                     </h3>
                                     <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>
                                         <i className='fas fa-map-marker-alt mr-2 text-lg text-gray-500'></i>{' '}
-                                        Number of posts here
+                                        {userLinks.length} Posts
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
-                                    <div className='flex flex-wrap justify-center gap-20'>
+                                    <div className='text-xs leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
+                                        {actionMessage}
+                                    </div>
+                                    <div className='flex flex-wrap justify-center gap-10'>
                                         {userLinks.map(
                                             (link: {
                                                 user_id: number;
@@ -93,15 +96,20 @@ export const Profile = () => {
                                                                 __html: link.link,
                                                             }}
                                                         />
-                                                        <button
-                                                            value={link.id}
-                                                            onClick={
-                                                                handleDelete
-                                                            }
-                                                            type='button'
-                                                            className='py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>
-                                                            -
-                                                        </button>
+                                                        <div className='flex flex-wrap'>
+                                                            <button
+                                                                value={link.id}
+                                                                onClick={
+                                                                    handleDelete
+                                                                }
+                                                                type='button'
+                                                                className='flex-start py-1 px-3  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>
+                                                                DELETE
+                                                            </button>
+                                                            <PostRatings
+                                                                link={link}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 );
                                             }

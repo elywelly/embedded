@@ -177,7 +177,7 @@ export const NewPost = () => {
                                                     Twitter
                                                 </MenuItem>
                                                 <MenuItem value={'giphy'}>
-                                                    Giphy
+                                                    GIPHY
                                                 </MenuItem>
                                             </Select>
                                         </FormControl>

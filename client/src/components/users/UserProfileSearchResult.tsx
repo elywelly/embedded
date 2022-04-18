@@ -1,23 +1,43 @@
+import { Rating } from '@mui/material';
 import axios from 'axios';
 import { useContext, useState, useEffect } from 'react';
 import ApplicationContext from '../../application-context';
 
 export const UserProfileSearchResult = (props: any) => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
-    const [searchedUsed, setSearchedUser] = useState(props);
     const [userLinks, setUserLinks] = useState<any>([]);
+    const [actionMessage, setActionMessage] = useState<any>('');
+    const [value, setValue] = useState<number | null>(0);
 
     useEffect(() => {
-        setSearchedUser(props);
         const getData = async () => {
             const res = await axios.get(
                 `api/posts/user/${props.searchResult.id}`
             );
-            console.log(res.data);
             setUserLinks(res.data);
         };
         getData();
-    }, [props]);
+    }, [props.searchResult.id]);
+
+    const handleAdd = (e: any) => {
+        const body = {
+            link: e.target.value,
+        };
+
+        const addPost = async () => {
+            try {
+                const res = await axios.post(`/api/posts/create`, body);
+                console.log(res.statusText, 'status');
+                setActionMessage('Successfully added to your profile');
+            } catch (err) {
+                console.error(err, 'error adding');
+                setActionMessage(
+                    'Error adding to your profile, please try again'
+                );
+            }
+        };
+        addPost();
+    };
 
     return (
         <div>
@@ -51,28 +71,61 @@ export const UserProfileSearchResult = (props: any) => {
                         <div className='relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64'>
                             <div className='px-6'>
                                 <div className='text-center mt-12'>
-                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2'>
+                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 uppercase'>
                                         @{props.searchResult.username}
                                     </h3>
                                     <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>
-                                        <i className='fas fa-map-marker-alt mr-2 text-lg text-gray-500'></i>{' '}
-                                        Number of posts here
+                                        <i className='fas fa-map-marker-alt mr-2 text-xs text-gray-500'></i>{' '}
+                                        {userLinks.length} Posts
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
-                                    <div className='flex flex-wrap justify-center gap-20'>
+                                    <div className='text-xs leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
+                                        {actionMessage}
+                                    </div>
+                                    <div className='flex flex-wrap justify-center gap-10'>
                                         {userLinks.map(
                                             (link: {
                                                 user_id: number;
-                                                post_id: number;
+                                                id: number;
                                                 link: string;
                                             }) => {
                                                 return (
                                                     <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: link.link,
-                                                        }}
-                                                    />
+                                                        className='flex flex-col justify-center gap-5'
+                                                        key={link.id}>
+                                                        <div
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: link.link,
+                                                            }}
+                                                        />
+                                                        <div className='flex flex-wrap'>
+                                                            <button
+                                                                value={
+                                                                    link.link
+                                                                }
+                                                                onClick={
+                                                                    handleAdd
+                                                                }
+                                                                type='button'
+                                                                className='py-1 px-3  bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>
+                                                                ADD
+                                                            </button>
+                                                            <Rating
+                                                                className='ml-auto'
+                                                                name='simple-controlled'
+                                                                value={value}
+                                                                onChange={(
+                                                                    event,
+                                                                    newValue
+                                                                ) => {
+                                                                    setValue(
+                                                                        newValue
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 );
                                             }
                                         )}

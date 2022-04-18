@@ -13,14 +13,16 @@ const Post_ratings = {
             return response.rows;
         });
     },
-    post_id: (post_id) => {
-        const query = `SELECT rating FROM post_ratings WHERE post_id = $1`;
-        return db.query(query, [post_id]).then((response) => {
-            return response.rows
+    post_id: ({post_id, user_id}) => {
+        const query = `SELECT rating FROM post_ratings WHERE post_id = $1 AND user_id = $2`;
+        return db.query(query, [post_id, user_id]).then((response) => {
+            return response.rows && response.rows.length > 0
+                ? response.rows
+                : null;
         });
     },
     create: ({post_id, user_id, rating}) => {
-        const query = `INSERT INTO post_ratings (post_id, user_id, rating) VALUES ($1, $2, $3) RETURNING *`;
+        const query = `INSERT INTO post_ratings (post_id, user_id, rating) VALUES ($1, $2, $3) RETURNING rating`;
         return db
             .query(query, [post_id, user_id, rating])
             .then((response) => {
@@ -29,7 +31,7 @@ const Post_ratings = {
     },
     update: ({rating, post_id, user_id}) => {
         const query =
-        'UPDATE post_ratings SET rating = $1 WHERE post_id = $2 AND user_id = $3 RETURNING *';
+        'UPDATE post_ratings SET rating = $1 WHERE post_id = $2 AND user_id = $3 RETURNING rating';
     return db.query(query, [rating, post_id, user_id]).then((response) => {
         return response.rows ? response.rows[0] : {};
     });

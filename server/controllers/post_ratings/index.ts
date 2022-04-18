@@ -15,19 +15,22 @@ router.get('/:user_id', (req, res) => {
     });
 });
 
-router.get('/post/:post_id', (req, res) => {
-    Post_ratings.post_id(req.params.post_id).then((postRating) => {
+router.get('/post', (req, res) => {
+    req.body["user_id"] = req.session.user_id
+    Post_ratings.post_id(req.body).then((postRating) => {
         res.json(postRating);
     });
 });
 
 router.post('/create/', (req, res) => {
+    req.body["user_id"] = req.session.user_id
     Post_ratings.create(req.body).then((response) => {
         res.status(201).json(response);
     });
 });
 
 router.patch('/update/', (req, res) => {
+    req.body["user_id"] = req.session.user_id
     Post_ratings.update(req.body).then((rating) => {
         res.json(rating);
     });
