@@ -15,9 +15,12 @@ router.get('/:user_id', (req, res) => {
     });
 });
 
-router.get('/post', (req, res) => {
-    req.body["user_id"] = req.session.user_id
-    Post_ratings.post_id(req.body).then((postRating) => {
+router.get('/post/:post_id', (req, res) => {
+    const data = {
+        post_id: req.params.post_id, 
+        user_id: req.session.user_id
+    }
+    Post_ratings.post_id(data).then((postRating) => {
         res.json(postRating);
     });
 });

@@ -9,18 +9,18 @@ export const Profile = () => {
     const [buttonId, setButtonId] = useState<any>(0);
     const [actionMessage, setActionMessage] = useState<any>('');
 
-    useEffect(() => {
-        const getData = async () => {
-            const res = await axios.get(`api/posts/profile`);
-            setUserLinks(res.data);
-        };
-        getData();
-    }, [buttonId]);
+    const getData = async () => {
+        const res = await axios.get(`api/posts/profile`);
+        setUserLinks(res.data);
+    };
 
-    const handleDelete = (e: any) => {
-        setButtonId(e.target.value);
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const handleDelete = (post_id: number) => {
         const body = {
-            id: e.target.value,
+            id: post_id,
         };
 
         const deletePost = async () => {
@@ -29,6 +29,7 @@ export const Profile = () => {
                     data: { body },
                 });
                 setActionMessage('Successfully deleted from profile');
+                getData();
                 console.log(res.statusText);
             } catch (err) {
                 setActionMessage('Delete error, please try again');
@@ -90,7 +91,9 @@ export const Profile = () => {
                                                 link: string;
                                             }) => {
                                                 return (
-                                                    <div className='flex flex-col justify-center gap-5'>
+                                                    <div
+                                                        className='flex flex-col justify-center gap-5'
+                                                        key={link.id}>
                                                         <div
                                                             dangerouslySetInnerHTML={{
                                                                 __html: link.link,
@@ -99,8 +102,10 @@ export const Profile = () => {
                                                         <div className='flex flex-wrap'>
                                                             <button
                                                                 value={link.id}
-                                                                onClick={
-                                                                    handleDelete
+                                                                onClick={() =>
+                                                                    handleDelete(
+                                                                        link.id
+                                                                    )
                                                                 }
                                                                 type='button'
                                                                 className='flex-start py-1 px-3  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>

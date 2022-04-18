@@ -22,7 +22,7 @@ create table post_ratings(
     PRIMARY KEY(post_id, user_id),
     CONSTRAINT fk_post 
         FOREIGN KEY(post_id) 
-        REFERENCES posts(id),
+        REFERENCES posts(id) ON DELETE CASCADE,
     CONSTRAINT fk_user 
         FOREIGN KEY(user_id) 
         REFERENCES users(id) ON DELETE CASCADE

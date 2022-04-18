@@ -6,22 +6,19 @@ export default function PostRatings(props: any) {
     const [value, setValue] = useState<number | null>(null);
 
     useEffect(() => {
-        const body = {
-            post_id: props.link.id,
-        };
-
         const getData = async () => {
-            console.log(body);
-            const res = await axios.get(`api/post_ratings/post`, {
-                data: { body },
-            });
-            console.log(res.data);
-            if (res.data !== null) {
-                setValue(res.data);
+            try {
+                const res = await axios.get(
+                    `api/post_ratings/post/${props.link.id}`
+                );
+                console.log(res.data.rating);
+                setValue(res.data ? res.data.rating : null);
+            } catch (err) {
+                console.error(err);
             }
         };
         getData();
-    }, []);
+    }, [props.link.id]);
 
     const handleRating = (
         event: any,
