@@ -1,17 +1,25 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
 import PostRatings from './PostRatings';
 
 export const Profile = () => {
+    const navigate = useNavigate();
+
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [userLinks, setUserLinks] = useState<any>([]);
     const [buttonId, setButtonId] = useState<any>(0);
-    const [actionMessage, setActionMessage] = useState<any>('');
+    const [errorActionMessage, setErrorActionMessage] = useState<any>('');
+    const [successActionMessage, setSuccessActionMessage] = useState<any>('');
 
     const getData = async () => {
-        const res = await axios.get(`api/posts/profile`);
-        setUserLinks(res.data);
+        try {
+            const res = await axios.get(`api/posts/profile`);
+            setUserLinks(res.data);
+        } catch (err) {
+            setErrorActionMessage('Error getting data, please try again later');
+        }
     };
 
     useEffect(() => {
@@ -28,10 +36,10 @@ export const Profile = () => {
                 const res = await axios.delete(`/api/posts/delete`, {
                     data: { body },
                 });
-                setActionMessage('Successfully deleted from profile');
+                setSuccessActionMessage('Successfully deleted from profile');
                 getData();
             } catch (err) {
-                setActionMessage('Delete error, please try again');
+                setErrorActionMessage('Delete error, please try again');
             }
         };
         deletePost();
@@ -78,8 +86,11 @@ export const Profile = () => {
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
-                                    <div className='text-xs leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
-                                        {actionMessage}
+                                    <div className='text-sm leading-normal mt-0 mb-2 py-3 text-red-700 font-bold'>
+                                        {errorActionMessage}
+                                    </div>
+                                    <div className='text-sm leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
+                                        {successActionMessage}
                                     </div>
                                     <div className='flex flex-wrap justify-center gap-10'>
                                         {userLinks.map(

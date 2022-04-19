@@ -22,12 +22,18 @@ export const SearchUser = () => {
 
         if (!error) {
             const getData = async () => {
-                const res = await axios.get(`/api/users/profile/${username}`);
-                if (res.data === null) {
-                    setinvalidUserText('User does not exist');
-                    setUsername('');
-                } else {
-                    setSearchResult(res.data);
+                try {
+                    const res = await axios.get(
+                        `/api/users/profile/${username}`
+                    );
+                    if (res.data === null) {
+                        setinvalidUserText('User does not exist');
+                        setUsername('');
+                    } else {
+                        setSearchResult(res.data);
+                    }
+                } catch {
+                    setinvalidUserText('Error finding user, please try again');
                 }
             };
             getData();

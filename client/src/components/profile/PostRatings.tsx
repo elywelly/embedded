@@ -4,6 +4,7 @@ import { SetStateAction, useEffect, useState } from 'react';
 
 export default function PostRatings(props: any) {
     const [value, setValue] = useState<number | null>(null);
+    const [ratingError, setRatingError] = useState<string | null>(null);
 
     useEffect(() => {
         const getData = async () => {
@@ -13,7 +14,7 @@ export default function PostRatings(props: any) {
                 );
                 setValue(res.data ? res.data.rating : null);
             } catch (err) {
-                console.error(err);
+                setRatingError('Rating Error');
             }
         };
         getData();
@@ -36,7 +37,7 @@ export default function PostRatings(props: any) {
                 );
                 console.log(res.statusText);
             } catch (err) {
-                console.error(err);
+                setRatingError('Rating Error');
             }
         };
 
@@ -53,7 +54,7 @@ export default function PostRatings(props: any) {
                 );
                 console.log(res.statusText);
             } catch (err) {
-                console.error(err);
+                setRatingError('Rating Error');
             }
         };
 
@@ -74,6 +75,7 @@ export default function PostRatings(props: any) {
                 value={value}
                 onChange={handleRating}
             />
+            <div className='text-sm text-red-700 font-bold'>{ratingError}</div>
         </>
     );
 }

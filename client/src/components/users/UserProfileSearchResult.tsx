@@ -1,21 +1,23 @@
 import { Rating } from '@mui/material';
 import axios from 'axios';
-import { useContext, useState, useEffect } from 'react';
-import ApplicationContext from '../../application-context';
+import { useState, useEffect } from 'react';
 import PostRatings from '../profile/PostRatings';
 
 export const UserProfileSearchResult = (props: any) => {
-    const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [userLinks, setUserLinks] = useState<any>([]);
-    const [actionMessage, setActionMessage] = useState<any>('');
-    const [value, setValue] = useState<number | null>(0);
+    const [errorActionMessage, setErrorActionMessage] = useState<any>('');
+    const [successActionMessage, setSuccessActionMessage] = useState<any>('');
 
     useEffect(() => {
         const getData = async () => {
-            const res = await axios.get(
-                `api/posts/user/${props.searchResult.id}`
-            );
-            setUserLinks(res.data);
+            try {
+                const res = await axios.get(
+                    `api/posts/user/${props.searchResult.id}`
+                );
+                setUserLinks(res.data);
+            } catch {
+                setErrorActionMessage(`Error getting user information`);
+            }
         };
         getData();
     }, [props.searchResult.id]);
@@ -28,9 +30,9 @@ export const UserProfileSearchResult = (props: any) => {
         const addPost = async () => {
             try {
                 const res = await axios.post(`/api/posts/create`, body);
-                setActionMessage('Successfully added to your profile');
+                setSuccessActionMessage('Successfully added to your profile');
             } catch (err) {
-                setActionMessage(
+                setErrorActionMessage(
                     'Error adding to your profile, please try again'
                 );
             }
@@ -79,8 +81,11 @@ export const UserProfileSearchResult = (props: any) => {
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
-                                    <div className='text-xs leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
-                                        {actionMessage}
+                                    <div className='text-sm leading-normal mt-0 mb-2 py-3 text-red-700 font-bold'>
+                                        {errorActionMessage}
+                                    </div>
+                                    <div className='text-sm leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
+                                        {successActionMessage}
                                     </div>
                                     <div className='flex flex-wrap justify-center gap-10'>
                                         {userLinks.map(

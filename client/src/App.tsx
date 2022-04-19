@@ -12,7 +12,7 @@ import Container from './components/Container';
 import { Logout } from './components/sessions/Logout';
 import { SearchUser } from './components/users/SearchUser';
 import { UserProfileSearchResult } from './components/users/UserProfileSearchResult';
-import PageError from './components/users/PageError';
+import PageError from './components/PageError';
 import About from './About';
 
 function App() {

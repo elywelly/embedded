@@ -50,7 +50,8 @@ export const NewPost = () => {
                 const resPost = await axios.post(`/api/posts/create`, postBody);
                 setPreviewText(true);
             } catch (err) {
-                console.error(err);
+                setLinkFormError(true);
+                setInvalidLinkText('Error Creating post, please try again');
             }
         };
 
@@ -217,14 +218,14 @@ export const NewPost = () => {
                 </div>
                 <div className='px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10'>
                     <p className='text-xs leading-5 text-gray-500'>Preview:</p>
-                    <div
-                        className='flex justify-center items-center h-screen"'
-                        dangerouslySetInnerHTML={{ __html: validLink }}
-                    />
-                    {previewText ? (
+                    {!linkFormError && (
+                        <div
+                            className='flex justify-center items-center h-screen"'
+                            dangerouslySetInnerHTML={{ __html: validLink }}
+                        />
+                    )}
+                    {previewText && !linkFormError && (
                         <Link to='/profile'>Click to view on Profile</Link>
-                    ) : (
-                        ''
                     )}
                 </div>
             </div>

@@ -77,12 +77,9 @@ export default function Login() {
                         <Typography component='h1' variant='h5'>
                             Login
                         </Typography>
-                        <Typography
-                            variant='subtitle1'
-                            gutterBottom
-                            component='div'>
+                        <div className='text-sm leading-normal text-red-700 mt-3'>
                             {errorDisplay}
-                        </Typography>
+                        </div>
                         <Box
                             component='form'
                             onSubmit={handleSubmit}
@@ -136,7 +133,7 @@ export default function Login() {
                             </ColorSubmitButton>
                             <Grid container>
                                 <Grid item>
-                                    <Link href='#' variant='body2'>
+                                    <Link href='/signup' variant='body2'>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>

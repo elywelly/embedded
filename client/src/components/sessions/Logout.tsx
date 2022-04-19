@@ -8,10 +8,15 @@ export function Logout() {
 
     const navigate = useNavigate();
 
-    axios.delete('/api/sessions').then((res) => {
-        setCurrentUser(null);
-        navigate('/login');
-    });
+    axios
+        .delete('/api/sessions')
+        .then((res) => {
+            setCurrentUser(null);
+            navigate('/login');
+        })
+        .catch((err) => {
+            alert('Error logging out');
+        });
 
     return <Link to='/' />;
 }

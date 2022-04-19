@@ -19,6 +19,7 @@ export default function About() {
                         </h1>
                         <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0'>
                             So many memes, so many platforms and so little time.
+                            Can't remember if you saw it on GIPHY or YouTube?
                             Embedded is a platform to consolidate your favourite
                             posts from various social media platforms. Just
                             embed them onto your embedded profile. The best way

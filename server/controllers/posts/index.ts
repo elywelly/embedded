@@ -17,22 +17,18 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 router.get('/user/:user_id', isLoggedIn, (req, res) => {
-    if (req.params.user_id != req.session.user_id) {
-        res.status(403).json({message: 'Not allowed'})
-        return
-    }
     Posts.user_id(req.params.user_id).then((userPosts) => {
         res.json(userPosts);
     });
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/post/:id', isLoggedIn, (req, res) => {
     Posts.id(req.params.id).then((post) => {
         res.json(post);
     });
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', isLoggedIn, (req, res) => {
     req.body["user_id"] = req.session.user_id
     Posts.create(req.body).then((response) => {
         res.status(201).json(response);

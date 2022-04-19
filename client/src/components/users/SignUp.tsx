@@ -53,7 +53,9 @@ export default function SignUp() {
                     );
                     seterrorDisplay('Account successfully created');
                 } catch (err: any) {
-                    seterrorDisplay(err.response.data.message);
+                    seterrorDisplay(
+                        'User exists, please pick a unique username and/or email'
+                    );
                 }
             };
             signupUser();
@@ -75,12 +77,9 @@ export default function SignUp() {
                     <Typography component='h1' variant='h5'>
                         Create an account
                     </Typography>
-                    <Typography
-                        variant='subtitle1'
-                        gutterBottom
-                        component='div'>
+                    <div className='text-sm leading-normal text-red-700 mt-3'>
                         {errorDisplay}
-                    </Typography>
+                    </div>
                     <Box
                         component='form'
                         noValidate
@@ -145,7 +144,7 @@ export default function SignUp() {
                         </ColorSubmitButton>
                         <Grid container justifyContent='flex-end'>
                             <Grid item>
-                                <Link href='#' variant='body2'>
+                                <Link href='/login' variant='body2'>
                                     Already have an account? Login
                                 </Link>
                             </Grid>
