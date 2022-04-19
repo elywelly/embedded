@@ -30,7 +30,6 @@ router.post('/create', userValidator, (req, res) => {
 
             res.json(user);
         }).catch((error) => {
-            console.log(error)
             return res.status(500).json({
                     message: `Error: ${error}`,
                 });

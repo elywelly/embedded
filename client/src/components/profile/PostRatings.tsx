@@ -35,7 +35,6 @@ export default function PostRatings(props: any) {
                     `/api/post_ratings/create`,
                     createBody
                 );
-                console.log(res.statusText);
             } catch (err) {
                 setRatingError('Rating Error');
             }
@@ -52,7 +51,6 @@ export default function PostRatings(props: any) {
                     `/api/post_ratings/update`,
                     updateBody
                 );
-                console.log(res.statusText);
             } catch (err) {
                 setRatingError('Rating Error');
             }
