@@ -4,6 +4,22 @@ So many memes, so many platforms and so little time. Embedded is a platform to c
 
 View `Embedded` the app [here](https://embedded-the-app.herokuapp.com/).
 
+## Snapshot of the App
+
+#### Test Data
+
+Username:
+Password:
+
+## Tech Used
+
+-   React
+-   Express
+-   Node JS
+-   Postgres
+-   Tailwind
+-   Material UI
+
 ## Vision
 
 Simplifying the way `users` share their favourite posts or revisit content that they enjoy across multiple platforms. Embedded consolidates (embeds) them into one spot, their embedded profile.
@@ -15,8 +31,10 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 **Potential future feature:**
 
 -   Ability for users to comment on posts they like.
+-   Ability for users to customise their profile (background image and avatars)
 -   Ability for users to upload unique posts that they created.
 -   Ability for users to search for posts by tags/topics within Embedded.
+-   Ability for users to include embedded links from more social platforms.
 -   Security: Consider a safer way for users to use external links
 
 ## User Stories/Flow
@@ -33,8 +51,18 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 ## Entity Relationship Diagram
 
-![Entity Relationship Diagram](/assets/erdd.png)
+![Entity Relationship Diagram](/assets/final-erd.png)
 
 ## Approach
 
+After planning, I created a Trello board and broke down the different pieces of work that needed to be completed into cards. They were separated by `Planning`, `MVP` and `Extension`.
+
+I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising established UI libraries as I wanted to ensure that I have enough time to write tests.
+
+A challenge that I faced was that `Embedded` uses code from external sites. With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
+
+With functionalities and planned extension completed, I left some time for myself to write some backend and front-end tests for the app to ensure that my components are functioning as intended.
+
 ### Credits
+
+Pixabay for images
