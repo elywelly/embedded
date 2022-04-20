@@ -79,7 +79,7 @@ export const Profile = () => {
                         <div className='relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64'>
                             <div className='px-6'>
                                 <div className='text-center mt-12'>
-                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2 uppercase'>
+                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-indigo-800 mb-2'>
                                         @{currentUser.username}
                                     </h3>
                                     <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>

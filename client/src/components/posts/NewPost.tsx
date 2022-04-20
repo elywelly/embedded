@@ -231,7 +231,9 @@ export const NewPost = () => {
                         />
                     )}
                     {previewText && !linkFormError && (
-                        <Link to='/profile'>Click to view on Profile</Link>
+                        <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>
+                            <Link to='/profile'>Click to view on Profile</Link>
+                        </div>
                     )}
                 </div>
             </div>
