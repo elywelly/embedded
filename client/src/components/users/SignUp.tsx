@@ -8,13 +8,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import ApplicationContext from '../../application-context';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 import { ColorSubmitButton } from '../styles';
 
 const theme = createTheme();
 
 export default function SignUp() {
+    const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [usernameError, setUsernameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -61,6 +64,10 @@ export default function SignUp() {
             signupUser();
         }
     };
+
+    if (currentUser) {
+        return <Navigate to='/profile' replace />;
+    }
 
     return (
         <ThemeProvider theme={theme}>

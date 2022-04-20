@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
 import PostRatings from './PostRatings';
 
 export const Profile = () => {
-    const navigate = useNavigate();
-
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [userLinks, setUserLinks] = useState<any>([]);
     const [buttonId, setButtonId] = useState<any>(0);
@@ -44,6 +42,10 @@ export const Profile = () => {
         };
         deletePost();
     };
+
+    if (!currentUser) {
+        return <Navigate to='/login' replace />;
+    }
 
     return (
         <div>

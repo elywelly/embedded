@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useContext, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
 import { ColorSubmitButton } from '../styles';
 
@@ -59,6 +59,10 @@ export default function Login() {
             newUserSession();
         }
     };
+
+    if (currentUser) {
+        return <Navigate to='/profile' replace />;
+    }
 
     return (
         <>

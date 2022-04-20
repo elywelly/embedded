@@ -7,11 +7,13 @@ import {
     FormControl,
 } from '@mui/material';
 import axios from 'axios';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import ApplicationContext from '../../application-context';
 import '../../App.css';
 
 export const NewPost = () => {
+    const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [link, setLink] = useState('');
     const [validLink, setValidLink] = useState('');
     const [platform, setPlatform] = useState('');
@@ -113,6 +115,10 @@ export const NewPost = () => {
                 setInvalidLinkText('Platform required');
         }
     };
+
+    if (!currentUser) {
+        return <Navigate to='/login' replace />;
+    }
 
     return (
         <div>

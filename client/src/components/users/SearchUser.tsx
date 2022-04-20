@@ -1,10 +1,13 @@
 import { TextField, Box, FormControl } from '@mui/material';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import ApplicationContext from '../../application-context';
 import '../../App.css';
 import { UserProfileSearchResult } from './UserProfileSearchResult';
+import { Navigate } from 'react-router-dom';
 
 export const SearchUser = () => {
+    const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [username, setUsername] = useState('');
     const [enteredUsername, setEnteredUsername] = useState('');
     const [invalidUserText, setinvalidUserText] = useState('');
@@ -39,6 +42,10 @@ export const SearchUser = () => {
             getData();
         }
     };
+
+    if (!currentUser) {
+        return <Navigate to='/login' replace />;
+    }
 
     return (
         <>

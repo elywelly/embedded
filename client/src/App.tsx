@@ -35,14 +35,14 @@ function App() {
                     value={[currentUser, setCurrentUser]}>
                     <Container />
                     <Routes>
-                        {currentUser ? (
-                            <Route path='/' element={<Profile />} />
-                        ) : (
-                            <Route path='/' element={<About />} />
-                        )}
+                        <Route path='/' element={<About />} />
                         <Route path='login' element={<Login />} />
                         <Route path='about' element={<About />} />
                         <Route path='signup' element={<SignUp />} />
+                        <Route path='embed' element={<NewPost />} />
+                        <Route path='search' element={<SearchUser />} />
+                        <Route path='profile' element={<Profile />} />
+                        <Route path='logout' element={<Logout />} />
                         <Route path='*' element={<PageError />} />
                     </Routes>
                 </ApplicationContext.Provider>
