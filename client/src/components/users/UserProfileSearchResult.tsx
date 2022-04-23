@@ -1,7 +1,7 @@
-import { Rating } from '@mui/material';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import PostRatings from '../profile/PostRatings';
+const background: string = './background.avif';
 
 export const UserProfileSearchResult = (props: any) => {
     const [userLinks, setUserLinks] = useState<any>([]);
@@ -44,12 +44,11 @@ export const UserProfileSearchResult = (props: any) => {
         <div>
             <main className='profile-page'>
                 <section className='relative block' style={{ height: '500px' }}>
-                    <div
-                        className='absolute top-0 w-full h-full bg-center bg-cover'
-                        style={{
-                            backgroundImage:
-                                "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
-                        }}></div>
+                    <img
+                        className='absolute top-0 w-full h-full bg-center bg-cover object-cover'
+                        src={require(`${background}`)}
+                        alt=''
+                    />
                     <div
                         className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden'
                         style={{ height: '70px' }}>

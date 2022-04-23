@@ -11,9 +11,8 @@ import ApplicationContext from './application-context';
 import Container from './components/Container';
 import { Logout } from './components/sessions/Logout';
 import { SearchUser } from './components/users/SearchUser';
-import { UserProfileSearchResult } from './components/users/UserProfileSearchResult';
 import PageError from './components/PageError';
-import About from './About';
+import About from './components/About';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);

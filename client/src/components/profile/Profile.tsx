@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
 import PostRatings from './PostRatings';
+const background: string = './background.avif';
 
 export const Profile = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
@@ -51,12 +52,11 @@ export const Profile = () => {
         <div>
             <main className='profile-page'>
                 <section className='relative block' style={{ height: '500px' }}>
-                    <div
-                        className='absolute top-0 w-full h-full bg-center bg-cover'
-                        style={{
-                            backgroundImage:
-                                "url('https://raw.githubusercontent.com/elywelly/embedded/master/assets/background.avif')",
-                        }}></div>
+                    <img
+                        className='absolute top-0 w-full h-full bg-center bg-cover object-cover'
+                        src={require(`${background}`)}
+                        alt=''
+                    />
                     <div
                         className='top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden'
                         style={{ height: '70px' }}>

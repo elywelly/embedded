@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import ApplicationContext from './application-context';
+import ApplicationContext from '../application-context';
+const homeImage: string = './homeimage.png';
 
 export default function About(props: any) {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
@@ -52,7 +53,7 @@ export default function About(props: any) {
                     <div className='lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2'>
                         <img
                             className='max-w-full max-h-full'
-                            src='https://github.com/elywelly/embedded/blob/master/assets/homeimage.png?raw=true'
+                            src={require(`${homeImage}`)}
                             alt=''
                         />
                     </div>
