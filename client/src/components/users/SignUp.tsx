@@ -22,6 +22,7 @@ export default function SignUp() {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [errorDisplay, seterrorDisplay] = useState('');
+    const [successDisplay, setSuccessDisplay] = useState('');
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -54,7 +55,7 @@ export default function SignUp() {
                         `/api/users/create`,
                         body
                     );
-                    seterrorDisplay('Account successfully created');
+                    setSuccessDisplay('Account successfully created');
                 } catch (err: any) {
                     seterrorDisplay(
                         'User exists, please pick a unique username and/or email'
@@ -86,6 +87,9 @@ export default function SignUp() {
                     </Typography>
                     <div className='text-sm leading-normal text-red-700 mt-3'>
                         {errorDisplay}
+                    </div>
+                    <div className='text-sm leading-normal text-green-700 mt-3'>
+                        {successDisplay}
                     </div>
                     <Box
                         component='form'
