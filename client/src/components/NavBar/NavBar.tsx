@@ -41,16 +41,16 @@ export default function NavBar() {
                                         EMBEDDED
                                     </div>
                                 </div>
-                                <div className='hidden my-0 mx-auto sm:block '>
+                                <div className='hidden my-0 mx-auto sm:block self-center'>
                                     <div className='flex space-x-12'>
                                         <Link
                                             to='/about'
-                                            className='text-xl font-large text-gray-500 hover:text-indigo-700 hover:font-bold'>
+                                            className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
                                             About
                                         </Link>
                                         <Link
                                             to='/login'
-                                            className='text-xl font-large text-gray-500 hover:text-indigo-700 hover:font-bold'>
+                                            className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
                                             Login
                                         </Link>
                                     </div>
@@ -71,7 +71,7 @@ export default function NavBar() {
                             <Disclosure.Button>
                                 <Link
                                     to='/about'
-                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:bg-indigo-700'>
+                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:text-indigo-700 hover:font-bold'>
                                     About
                                 </Link>
                                 <Link

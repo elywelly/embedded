@@ -47,21 +47,21 @@ export default function LoggedInNavBar() {
                                         EMBEDDED
                                     </div>
                                 </div>
-                                <div className='hidden my-0 mx-auto sm:block '>
+                                <div className='hidden my-0 mx-auto sm:block self-center'>
                                     <div className='flex space-x-12'>
                                         <Link
                                             to='/embed'
-                                            className='text-lg font-large text-gray-700 hover:text-indigo-700 hover:font-bold'>
+                                            className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
                                             Embed
                                         </Link>
                                         <Link
                                             to='/search'
-                                            className='text-lg font-large text-gray-700 hover:text-indigo-700 hover:font-bold'>
+                                            className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
                                             Search User
                                         </Link>
                                         <Link
                                             to='/profile'
-                                            className='text-lg font-large text-gray-700 hover:text-indigo-700 hover:font-bold'>
+                                            className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
                                             Profile
                                         </Link>
                                     </div>
@@ -82,17 +82,17 @@ export default function LoggedInNavBar() {
                             <Disclosure.Button>
                                 <Link
                                     to='/embed'
-                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:bg-indigo-700'>
+                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:text-indigo-700 hover:font-bold'>
                                     Embed
                                 </Link>
                                 <Link
                                     to='/search'
-                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:bg-indigo-700'>
+                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:text-indigo-700 hover:font-bold'>
                                     Search User
                                 </Link>
                                 <Link
                                     to='/profile'
-                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:bg-indigo-700'>
+                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:text-indigo-700 hover:font-bold'>
                                     Profile
                                 </Link>
                             </Disclosure.Button>
