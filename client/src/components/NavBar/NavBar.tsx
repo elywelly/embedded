@@ -1,9 +1,11 @@
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const logo: string = './icon.png';
 
 export default function NavBar() {
+    const { pathname } = useLocation();
+
     return (
         <Disclosure as='nav' className='bg-white-800'>
             {({ open }) => (
@@ -46,12 +48,26 @@ export default function NavBar() {
                                         <Link
                                             to='/about'
                                             className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
-                                            About
+                                            {pathname == '/about' ? (
+                                                <span className='font-bold text-indigo-700'>
+                                                    {' '}
+                                                    About
+                                                </span>
+                                            ) : (
+                                                'About'
+                                            )}
                                         </Link>
                                         <Link
                                             to='/login'
                                             className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
-                                            Login
+                                            {pathname == '/login' ? (
+                                                <span className='font-bold text-indigo-700'>
+                                                    {' '}
+                                                    Login
+                                                </span>
+                                            ) : (
+                                                'Login'
+                                            )}
                                         </Link>
                                     </div>
                                 </div>

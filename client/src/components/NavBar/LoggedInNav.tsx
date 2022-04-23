@@ -1,15 +1,11 @@
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 const logo: string = './icon.png';
 
-const navigation = [
-    { name: 'Embed', href: '/embed', current: true },
-    { name: 'Search User', href: '/search', current: false },
-    { name: 'Profile', href: '/profile', current: false },
-];
-
 export default function LoggedInNavBar() {
+    const { pathname } = useLocation();
+
     return (
         <Disclosure as='nav' className='bg-white-800'>
             {({ open }) => (
@@ -52,17 +48,38 @@ export default function LoggedInNavBar() {
                                         <Link
                                             to='/embed'
                                             className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
-                                            Embed
+                                            {pathname == '/embed' ? (
+                                                <span className='font-bold text-indigo-700'>
+                                                    {' '}
+                                                    Embed
+                                                </span>
+                                            ) : (
+                                                'Embed'
+                                            )}
                                         </Link>
                                         <Link
                                             to='/search'
                                             className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
-                                            Search User
+                                            {pathname == '/search' ? (
+                                                <span className='font-bold text-indigo-700'>
+                                                    {' '}
+                                                    Search User
+                                                </span>
+                                            ) : (
+                                                'Search User'
+                                            )}
                                         </Link>
                                         <Link
                                             to='/profile'
                                             className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
-                                            Profile
+                                            {pathname == '/profile' ? (
+                                                <span className='font-bold text-indigo-700'>
+                                                    {' '}
+                                                    Profile
+                                                </span>
+                                            ) : (
+                                                'Profile'
+                                            )}
                                         </Link>
                                     </div>
                                 </div>
