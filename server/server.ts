@@ -4,6 +4,7 @@ import path from "path";
 const expressSession = require('express-session');
 const pgSession = require('connect-pg-simple')(expressSession);
 const db = require('./database/db');
+const helmet = require('helmet')
 
 // middleware import
 const errorHandler = require('./middleware/errorHandler');
@@ -23,6 +24,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
   app.use(logger);
 }
+
+app.use(helmet())
 
 app.use(
   expressSession({

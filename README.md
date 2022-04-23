@@ -20,6 +20,8 @@ Password:
 -   Tailwind
 -   Material UI
 
+## Installation
+
 ## Vision
 
 Simplifying the way `users` share their favourite posts or revisit content that they enjoy across multiple platforms. Embedded consolidates (embeds) them into one spot, their embedded profile.
@@ -47,6 +49,7 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 ## Wireframe
 
+From Figma:
 ![Wireframe](/assets/wireframe.png)
 
 ## Entity Relationship Diagram
@@ -57,11 +60,11 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 After planning, I created a Trello board and broke down the different pieces of work that needed to be completed into cards. They were separated by `Planning`, `MVP` and `Extension`.
 
-I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising established UI libraries as I wanted to ensure that I have enough time to write tests.
+I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising my figma wireframe designs as a guide and established UI libraries.
 
 A challenge that I faced was that `Embedded` uses code from external sites. With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
 
-With functionalities and planned extension completed, I left some time for myself to write some backend and front-end tests for the app to ensure that my components are functioning as intended.
+With functionalities and some planned extension completed, I left some time for myself to write some backend and front-end tests for the app to ensure that my components are functioning as intended.
 
 ### Credits
 
