@@ -8,9 +8,7 @@ export function Copyright(props: any) {
             align='center'
             {...props}>
             {'Copyright © '}
-            <Link
-                color='inherit'
-                href='https://embedded-the-app.herokuapp.com/'>
+            <Link color='inherit' href='https://github.com/elywelly/embedded'>
                 Embedded
             </Link>{' '}
             {new Date().getFullYear()}
