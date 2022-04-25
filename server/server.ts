@@ -65,3 +65,5 @@ app.get("/api/test", (req: Request<any, any, any, any>, res: Response<any>) => {
   app.listen(+PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
+
+  export default app;

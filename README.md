@@ -19,6 +19,7 @@ Password:
 -   Postgres
 -   Tailwind
 -   Material UI
+-   Test Packages (Jest, Supertest)
 
 ## Installation
 
@@ -64,7 +65,7 @@ I worked on the main functionalities first such as the ability to embed posts, s
 
 A challenge that I faced was that `Embedded` uses code from external sites. With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
 
-With functionalities and some planned extension completed, I left some time for myself to write some backend and front-end tests for the app to ensure that my components are functioning as intended.
+With functionalities and some planned extension completed, I left some time for myself to look into and write a few backend and front-end tests for the app. This was a bit of a challenge as I was not as familiar with mocking HTTP requests. However, with some research, I found packages like `supertest` and `pgmock2` to support what I needed to test so I was able to write some tests in the time that I had.
 
 ### Credits
 

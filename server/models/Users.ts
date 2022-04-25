@@ -1,12 +1,6 @@
 const db = require('../database/db.js')
 
 const Users = {
-    id: (id) => {
-        const query = 'SELECT * FROM users WHERE id = $1';
-        return db.query(query, [id]).then((response) => {
-            return response.rows;
-        });
-    },
     profile_username: (username) => {
         const query = 'SELECT id, username FROM users WHERE username = $1';
         return db.query(query, [username]).then((response) => {
