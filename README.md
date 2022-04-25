@@ -23,7 +23,41 @@ View `Embedded` the app [here](https://embedded-the-app.herokuapp.com/).
 -   Material UI
 -   Test Packages (Jest, Supertest)
 
-## Installation
+### Installation
+
+Clone the repository:
+`git clone embedded`
+
+Install dependencies:
+
+```
+cd embedded
+npm install
+
+cd /embedded/client
+npm install
+
+cd /embedded/server
+npm install
+```
+
+Create a Postgres database with schema `/server/database/schema.sql`
+
+Create enviornment variables with your own `.env` file. Example variables:
+
+```
+SESSION_SECRET=secret
+SECURE_COOKIE=false
+NODE_ENV=development
+```
+
+To start project locally:
+
+```
+cd embedded
+npm run dev
+Open browser to http://localhost:3000
+```
 
 ## Vision
 
