@@ -6,15 +6,17 @@ View `Embedded` the app [here](https://embedded-the-app.herokuapp.com/).
 
 ## Snapshot of the App
 
-#### Test Data
+### Test Data
 
-Username:
-Password:
+#### Username:
+
+#### Password:
 
 ## Tech Used
 
 -   React
 -   Express
+-   TypeScript
 -   Node JS
 -   Postgres
 -   Tailwind
