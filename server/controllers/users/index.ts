@@ -20,6 +20,8 @@ router.get('/profile/:username', isLoggedIn, (req, res) => {
 
 router.post('/create', userValidator, (req, res) => {
     const user = req.body;
+    user.username.toLowerCase();
+    user.email.toLowerCase();
     user.password = bcrypt.hashSync(user.password.toString(),
         bcrypt.genSaltSync()
     );
@@ -27,7 +29,6 @@ router.post('/create', userValidator, (req, res) => {
         .then((user) => {
             req.session.user_id = user.id;
             req.session.username = user.username;
-
             res.json(user);
         }).catch((error) => {
             return res.status(500).json({

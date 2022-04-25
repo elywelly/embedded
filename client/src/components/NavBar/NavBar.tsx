@@ -31,7 +31,9 @@ export default function NavBar() {
                                 </Disclosure.Button>
                             </div>
                             <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
-                                <div className='flex-shrink-0 flex items-center' data-testId='logo'>
+                                <div
+                                    className='flex-shrink-0 flex items-center'
+                                    data-testId='logo'>
                                     <Link to='/'>
                                         <img
                                             className='h-8 w-auto sm:h-10'
@@ -74,7 +76,9 @@ export default function NavBar() {
                                     </div>
                                 </div>
                             </div>
-                            <div data-testId='signup-link' className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
+                            <div
+                                data-testId='signup-link'
+                                className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
                                 <Link
                                     to='/signup'
                                     className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700'>
@@ -98,7 +102,7 @@ export default function NavBar() {
                                     Sign up
                                 </Link>
                                 <p className='mt-6 text-center text-base font-medium text-gray-500'>
-                                    Existing customer?{' '}
+                                    Existing user?{' '}
                                     <Link
                                         to='/login'
                                         className='text-indigo-600 hover:text-indigo-500 hover:font-bold'>

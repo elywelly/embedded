@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-    const username = req.body.username;
+    const username = req.body.username.toLowerCase();
     const password = req.body.password;
 
     function incorrectResponse(res) {

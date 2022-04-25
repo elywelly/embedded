@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useContext } from 'react';
 import ApplicationContext from '../../application-context';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { ColorSubmitButton } from '../styles';
 
 const theme = createTheme();
@@ -23,6 +23,8 @@ export default function SignUp() {
     const [passwordError, setPasswordError] = useState(false);
     const [errorDisplay, seterrorDisplay] = useState('');
     const [successDisplay, setSuccessDisplay] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -56,6 +58,9 @@ export default function SignUp() {
                         body
                     );
                     setSuccessDisplay('Account successfully created');
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 1500);
                 } catch (err: any) {
                     seterrorDisplay(
                         'User exists, please pick a unique username and/or email'
