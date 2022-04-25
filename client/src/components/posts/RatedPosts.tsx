@@ -2,46 +2,27 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
-import PostRatings from './PostRatings';
-const background: string = './background.avif';
+import PostRatings from '../profile/PostRatings';
 
-export const Profile = () => {
+const background: string = './background.png';
+
+export const RatedPosts = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
-    const [userLinks, setUserLinks] = useState<any>([]);
+    const [ratedPosts, setRatedPosts] = useState<any>([]);
     const [errorActionMessage, setErrorActionMessage] = useState<any>('');
-    const [successActionMessage, setSuccessActionMessage] = useState<any>('');
-
-    const getData = async () => {
-        try {
-            const res = await axios.get(`api/posts/profile`);
-            setUserLinks(res.data);
-        } catch (err) {
-            setErrorActionMessage('Error getting data, please try again later');
-        }
-    };
 
     useEffect(() => {
-        getData();
-    }, []);
-
-    const handleDelete = (post_id: number) => {
-        const body = {
-            id: post_id,
-        };
-
-        const deletePost = async () => {
+        const getData = async () => {
             try {
-                const res = await axios.delete(`/api/posts/delete`, {
-                    data: { body },
-                });
-                setSuccessActionMessage('Successfully deleted from profile');
-                getData();
-            } catch (err) {
-                setErrorActionMessage('Delete error, please try again');
+                const res = await axios.get(`api/post_ratings/rated/`);
+
+                setRatedPosts(res.data);
+            } catch {
+                setErrorActionMessage(`Error getting rated posts`);
             }
         };
-        deletePost();
-    };
+        getData();
+    }, []);
 
     if (!currentUser) {
         return <Navigate to='/login' replace />;
@@ -78,26 +59,23 @@ export const Profile = () => {
                         <div className='relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64'>
                             <div className='px-6'>
                                 <div className='text-center mt-12'>
-                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-indigo-800 mb-2'>
-                                        @{currentUser.username}
+                                    <h3 className='text-4xl font-semibold leading-normal mb-2 text-gold-800 mb-2'>
+                                        RATED POSTS
                                     </h3>
                                     <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>
                                         <i className='fas fa-map-marker-alt mr-2 text-lg text-gray-500'></i>{' '}
-                                        {userLinks.length} Posts
+                                        {ratedPosts.length} Posts Rated
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
                                     <div className='text-sm leading-normal mt-0 mb-2 py-3 text-red-700 font-bold'>
                                         {errorActionMessage}
                                     </div>
-                                    <div className='text-sm leading-normal mt-0 mb-2 py-3 text-green-700 font-bold'>
-                                        {successActionMessage}
-                                    </div>
                                     <div className='flex flex-wrap justify-center gap-10'>
-                                        {userLinks.map(
+                                        {ratedPosts.map(
                                             (link: {
-                                                user_id: number;
                                                 id: number;
+                                                rating: number;
                                                 link: string;
                                             }) => {
                                                 return (
@@ -110,17 +88,6 @@ export const Profile = () => {
                                                             }}
                                                         />
                                                         <div className='flex flex-wrap'>
-                                                            <button
-                                                                value={link.id}
-                                                                onClick={() =>
-                                                                    handleDelete(
-                                                                        link.id
-                                                                    )
-                                                                }
-                                                                type='button'
-                                                                className='flex-start py-1 px-3  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-fit transition ease-in duration-200 text-center text-xs font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-full'>
-                                                                DELETE
-                                                            </button>
                                                             <PostRatings
                                                                 link={link}
                                                             />

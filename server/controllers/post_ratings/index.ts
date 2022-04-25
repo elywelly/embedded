@@ -5,12 +5,9 @@ const isLoggedIn = require('../../middleware/isLoggedIn');
 const router = express.Router();
 
 
-router.get('/:user_id', isLoggedIn, (req, res) => {
-    if (req.params.user_id != req.session.user_id) {
-        res.status(403).json({message: 'Not allowed'})
-        return
-    }
-    Post_ratings.user_id(req.params.user_id).then((userRatings) => {
+router.get('/rated', isLoggedIn, (req, res) => {
+    const user_id = req.session.user_id
+    Post_ratings.user_id(user_id).then((userRatings) => {
         res.json(userRatings);
     });
 });
@@ -24,6 +21,7 @@ router.get('/post/:post_id', isLoggedIn, (req, res) => {
         res.json(postRating);
     });
 });
+
 
 router.post('/create/', isLoggedIn, (req, res) => {
     req.body["user_id"] = req.session.user_id

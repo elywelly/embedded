@@ -83,6 +83,18 @@ export default function LoggedInNavBar() {
                                                 'Profile'
                                             )}
                                         </Link>
+                                        <Link
+                                            to='/rated'
+                                            className='text-base font-medium text-gray-700 hover:text-indigo-700 hover:font-bold'>
+                                            {pathname == '/rated' ? (
+                                                <span className='font-bold text-indigo-700'>
+                                                    {' '}
+                                                    Rated
+                                                </span>
+                                            ) : (
+                                                'Rated'
+                                            )}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +125,11 @@ export default function LoggedInNavBar() {
                                     to='/profile'
                                     className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:text-indigo-700 hover:font-bold'>
                                     Profile
+                                </Link>
+                                <Link
+                                    to='/rated'
+                                    className='w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-white hover:text-indigo-700 hover:font-bold'>
+                                    Rated
                                 </Link>
                             </Disclosure.Button>
                         </div>

@@ -13,6 +13,7 @@ import { Logout } from './components/sessions/Logout';
 import { SearchUser } from './components/users/SearchUser';
 import PageError from './components/PageError';
 import About from './components/About';
+import { RatedPosts } from './components/posts/RatedPosts';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -41,6 +42,7 @@ function App() {
                         <Route path='embed' element={<NewPost />} />
                         <Route path='search' element={<SearchUser />} />
                         <Route path='profile' element={<Profile />} />
+                        <Route path='rated' element={<RatedPosts />} />
                         <Route path='logout' element={<Logout />} />
                         <Route path='*' element={<PageError />} />
                     </Routes>

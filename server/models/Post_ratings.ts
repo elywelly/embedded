@@ -8,7 +8,7 @@ const Post_ratings = {
         });
     },
     user_id: (user_id) => {
-        const query = `SELECT rating FROM post_ratings WHERE user_id = $1`;
+        const query = `SELECT post_ratings.post_id AS id, post_ratings.rating, posts.link FROM posts INNER JOIN post_ratings ON (post_ratings.post_id = posts.id) WHERE post_ratings.user_id = $1;`;
         return db.query(query, [user_id]).then((response) => {
             return response.rows;
         });

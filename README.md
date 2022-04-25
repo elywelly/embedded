@@ -70,6 +70,7 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 **Potential future feature:**
 
 -   Ability for users to comment on posts they like.
+-   Ability for users to access more information on each post
 -   Ability for users to customise their profile (background image and avatars)
 -   Ability for users to upload unique posts that they created.
 -   Ability for users to search for posts by tags/topics within Embedded.
@@ -82,11 +83,10 @@ Simplifying the way `users` share their favourite posts or revisit content that 
 
 -   `Rose` prefers to be on only one platform, she enjoys short videos and the life hack tips she sees online. She uses Embedded to revisit them and view posts shared by her friends who are on other/multiple platforms. She enjoys the occassional memes, which her friend, `Jon` shares on his embedded profile.
 
-![Split Login](/assets/userStory.png)
+![User Story](/assets/userStory.png)
 
-## Wireframe
+## Wireframe (Figma)
 
-From Figma:
 ![Wireframe](/assets/wireframe.png)
 
 ## Entity Relationship Diagram
@@ -99,9 +99,11 @@ After planning, I created a Trello board and broke down the different pieces of 
 
 I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising my figma wireframe designs as a guide and established UI libraries.
 
-A challenge that I faced was that `Embedded` uses code from external sites. With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
+A challenge that I faced was that `Embedded` uses code from external sites (`iframes`). With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
 
-With functionalities and some planned extension completed, I left some time for myself to look into and write a few backend and front-end tests for the app. This was a bit of a challenge as I was not as familiar with mocking HTTP requests. However, with some research, I found packages like `supertest` and `pgmock2` to support what I needed to test so I was able to write some tests in the time that I had.
+With functionalities and some planned extension completed, I left some time for myself to look into and write a few backend and front-end tests for the app. This was a bit of a challenge as I was not as familiar with mocking HTTP requests and front-end testing. However, through working on this project I found packages like `supertest` and `pgmock2` to support what I needed to test so I was able to write a few tests in the time that I had.
+
+![Trello Board](/assets/TrelloBoard.png)
 
 ### Credits
 
