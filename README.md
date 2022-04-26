@@ -21,7 +21,6 @@ View `Embedded` the app [here](https://embedded-the-app.herokuapp.com/).
 -   Postgres
 -   Tailwind
 -   Material UI
--   Test Packages (Jest, Supertest)
 
 ### Installation
 
@@ -100,8 +99,6 @@ After planning, I created a Trello board and broke down the different pieces of 
 I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising my figma wireframe designs as a guide and established UI libraries.
 
 A challenge that I faced was that `Embedded` uses code from external sites (`iframes`). With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
-
-With functionalities and some planned extension completed, I left some time for myself to look into and write a few backend and front-end tests for the app. This was a bit of a challenge as I was not as familiar with mocking HTTP requests and front-end testing. However, through working on this project I found packages like `supertest` and `pgmock2` to support what I needed to test so I was able to write a few tests in the time that I had.
 
 ![Trello Board](/assets/TrelloBoard.png)
 
