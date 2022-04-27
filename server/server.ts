@@ -4,7 +4,7 @@ import path from "path";
 const expressSession = require('express-session');
 const pgSession = require('connect-pg-simple')(expressSession);
 const db = require('./database/db');
-const helmet = require('helmet')
+// const helmet = require('helmet')
 
 // middleware import
 const errorHandler = require('./middleware/errorHandler');
@@ -25,15 +25,15 @@ if (process.env.NODE_ENV !== "production") {
   app.use(logger);
 }
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      scriptSsrc: ["'self'", "https://embedded-the-app.herokuapp.com/"],
-      objectSrc: ["'self'", "https://embedded-the-app.herokuapp.com/", 'https://www.youtube.com/', 'https://www.instagram.com/', 'https://twitter.com/', 'https://giphy.com/'],
-      frameAncestors: ["'self'", "https://embedded-the-app.herokuapp.com/", 'https://www.youtube.com/', 'https://www.instagram.com/', 'https://twitter.com/', 'https://giphy.com/'],
-    },
-  })
-);
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       scriptSsrc: ["'self'", "https://embedded-the-app.herokuapp.com/"],
+//       objectSrc: ["'self'", "https://embedded-the-app.herokuapp.com/", 'https://www.youtube.com/', 'https://www.instagram.com/', 'https://twitter.com/', 'https://giphy.com/'],
+//       frameAncestors: ["'self'", "https://embedded-the-app.herokuapp.com/", 'https://www.youtube.com/', 'https://www.instagram.com/', 'https://twitter.com/', 'https://giphy.com/'],
+//     },
+//   })
+// );
 
 
 app.use(
