@@ -6,11 +6,21 @@ View `Embedded` the app [here](https://embedded-the-app.herokuapp.com/).
 
 ## Snapshot of the App
 
+#### Homepage
+
+![home desktop](/assets/homepage-desktop.png)![home mobile](/assets/homepage-mobile.png)
+
+#### Profile
+
+![profile desktop](/assets/profile-desktop.png)![profile mobile](/assets/profile-mobile.png)
+
 ### Test Data
 
-#### Username:
+**Username:** johndoe
+**Password:** test123
 
-#### Password:
+**Username:** jandoe
+**Password:** test123
 
 ## Tech Used
 
@@ -98,7 +108,7 @@ After planning, I created a Trello board and broke down the different pieces of 
 
 I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising my figma wireframe designs as a guide and established UI libraries.
 
-A challenge that I faced was that `Embedded` uses code from external sites (`iframes`). With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites.
+A challenge that I faced was that `Embedded` uses code from external sites (`iframes`). With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites. I initially had helmet for security but navigating through headers was another challenge.
 
 ![Trello Board](/assets/TrelloBoard.png)
 
