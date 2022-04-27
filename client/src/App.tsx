@@ -19,13 +19,9 @@ function App() {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        fetchSession()
-            .then((user) => {
-                setCurrentUser(user);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        fetchSession().then((user) => {
+            setCurrentUser(user);
+        });
     }, []);
 
     return (
