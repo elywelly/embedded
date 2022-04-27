@@ -108,7 +108,9 @@ After planning, I created a Trello board and broke down the different pieces of 
 
 I worked on the main functionalities first such as the ability to embed posts, search for users and rate posts. I then looked into extensions such as error handling and styles, utilising my figma wireframe designs as a guide and established UI libraries.
 
-A challenge that I faced was that `Embedded` uses code from external sites (`iframes`). With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites. I initially had helmet for security but navigating through headers was another challenge.
+A challenge that I faced was that `Embedded` uses code from external sites (`iframes`). With user safety as a consideration, I included `regex` to ensure that the `user`'s input does not have any unwanted code. This then limited the approved platforms that `users` are can embed code from to about a handful of sites. I initially had helmet for security but navigating through headers security whilst using `iframes` was another challenge in the time that I had.
+
+When I was done, I added in some test data and had a few users test the app. I then fixed a few found bugs such as case sensitivity and the `instagram` regex not accounting for `instagram` mobile users' links.
 
 ![Trello Board](/assets/TrelloBoard.png)
 
