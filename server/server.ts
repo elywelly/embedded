@@ -25,7 +25,11 @@ if (process.env.NODE_ENV !== "production") {
   app.use(logger);
 }
 
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 app.use(
   expressSession({

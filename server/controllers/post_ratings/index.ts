@@ -5,9 +5,16 @@ const isLoggedIn = require('../../middleware/isLoggedIn');
 const router = express.Router();
 
 
-router.get('/rated', isLoggedIn, (req, res) => {
+router.get('/rated/desc', isLoggedIn, (req, res) => {
     const user_id = req.session.user_id
-    Post_ratings.user_id(user_id).then((userRatings) => {
+    Post_ratings.user_id_desc(user_id).then((userRatings) => {
+        res.json(userRatings);
+    });
+});
+
+router.get('/rated/asc', isLoggedIn, (req, res) => {
+    const user_id = req.session.user_id
+    Post_ratings.user_id_asc(user_id).then((userRatings) => {
         res.json(userRatings);
     });
 });

@@ -10,14 +10,20 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/profile', isLoggedIn, (req, res) => {
-    Posts.user_id(req.session.user_id).then((userPosts) => {
+router.get('/profile/asc', isLoggedIn, (req, res) => {
+    Posts.user_id_asc(req.session.user_id).then((userPosts) => {
+        res.json(userPosts);
+    });
+});
+
+router.get('/profile/desc', isLoggedIn, (req, res) => {
+    Posts.user_id_desc(req.session.user_id).then((userPosts) => {
         res.json(userPosts);
     });
 });
 
 router.get('/user/:user_id', isLoggedIn, (req, res) => {
-    Posts.user_id(req.params.user_id).then((userPosts) => {
+    Posts.user_id_desc(req.params.user_id).then((userPosts) => {
         res.json(userPosts);
     });
 });

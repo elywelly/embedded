@@ -7,8 +7,14 @@ const Posts = {
             return response.rows;
         });
     },
-    user_id: (user_id) => {
-        const query = `SELECT * FROM posts WHERE user_id = $1`;
+    user_id_asc: (user_id) => {
+        const query = `SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at ASC`;
+        return db.query(query, [user_id]).then((response) => {
+            return response.rows;
+        });
+    },
+    user_id_desc: (user_id) => {
+        const query = `SELECT * FROM posts WHERE user_id = $1 ORDER BY created_at DESC`;
         return db.query(query, [user_id]).then((response) => {
             return response.rows;
         });

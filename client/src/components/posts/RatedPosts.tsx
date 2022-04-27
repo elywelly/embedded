@@ -1,3 +1,4 @@
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -10,11 +11,12 @@ export const RatedPosts = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [ratedPosts, setRatedPosts] = useState<any>([]);
     const [errorActionMessage, setErrorActionMessage] = useState<any>('');
+    const [rating, setRating] = useState<any>('desc');
 
     useEffect(() => {
         const getData = async () => {
             try {
-                const res = await axios.get(`api/post_ratings/rated/`);
+                const res = await axios.get(`api/post_ratings/rated/${rating}`);
 
                 setRatedPosts(res.data);
             } catch {
@@ -22,7 +24,7 @@ export const RatedPosts = () => {
             }
         };
         getData();
-    }, []);
+    }, [rating]);
 
     if (!currentUser) {
         return <Navigate to='/login' replace />;
@@ -68,6 +70,28 @@ export const RatedPosts = () => {
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
+                                    <FormControl
+                                        sx={{ m: 1, minWidth: 120 }}
+                                        size='small'>
+                                        <InputLabel id='demo-select-small'>
+                                            Rating
+                                        </InputLabel>
+                                        <Select
+                                            labelId='demo-select-small'
+                                            id='demo-select-small'
+                                            value={rating}
+                                            label='Rating'
+                                            onChange={(event: any) =>
+                                                setRating(event.target.value)
+                                            }>
+                                            <MenuItem value={'asc'}>
+                                                Low - High
+                                            </MenuItem>
+                                            <MenuItem value={'desc'}>
+                                                High - Low
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <div className='text-sm leading-normal mt-0 mb-2 py-3 text-red-700 font-bold'>
                                         {errorActionMessage}
                                     </div>

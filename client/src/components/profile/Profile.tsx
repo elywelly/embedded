@@ -1,3 +1,4 @@
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -10,10 +11,11 @@ export const Profile = () => {
     const [userLinks, setUserLinks] = useState<any>([]);
     const [errorActionMessage, setErrorActionMessage] = useState<any>('');
     const [successActionMessage, setSuccessActionMessage] = useState<any>('');
+    const [order_by, setOrderBy] = useState<any>('desc');
 
     const getData = async () => {
         try {
-            const res = await axios.get(`api/posts/profile`);
+            const res = await axios.get(`api/posts/profile/${order_by}`);
             setUserLinks(res.data);
         } catch (err) {
             setErrorActionMessage('Error getting data, please try again later');
@@ -22,7 +24,7 @@ export const Profile = () => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [order_by]);
 
     const handleDelete = (post_id: number) => {
         const body = {
@@ -87,6 +89,28 @@ export const Profile = () => {
                                     </div>
                                 </div>
                                 <div className='mt-10 py-10 border-t border-gray-300 text-center'>
+                                    <FormControl
+                                        sx={{ m: 1, minWidth: 150 }}
+                                        size='small'>
+                                        <InputLabel id='demo-select-small'>
+                                            Order By
+                                        </InputLabel>
+                                        <Select
+                                            labelId='demo-select-small'
+                                            id='demo-select-small'
+                                            value={order_by}
+                                            label='Rating'
+                                            onChange={(event: any) =>
+                                                setOrderBy(event.target.value)
+                                            }>
+                                            <MenuItem value={'asc'}>
+                                                Oldest - Newest
+                                            </MenuItem>
+                                            <MenuItem value={'desc'}>
+                                                Newest - Oldest
+                                            </MenuItem>
+                                        </Select>
+                                    </FormControl>
                                     <div className='text-sm leading-normal mt-0 mb-2 py-3 text-red-700 font-bold'>
                                         {errorActionMessage}
                                     </div>
