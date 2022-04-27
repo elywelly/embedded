@@ -62,6 +62,7 @@ export const RatedPosts = () => {
                             <div className='px-6'>
                                 <div className='text-center mt-12'>
                                     <h3 className='text-4xl font-semibold leading-normal mb-2 text-gold-800 mb-2'>
+                                        @{currentUser.username.toUpperCase()}'s
                                         RATED POSTS
                                     </h3>
                                     <div className='text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase'>
