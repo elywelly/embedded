@@ -36,6 +36,12 @@ export const NewPost = () => {
         const instaRegex = new RegExp(
             /^https:\/\/www\.instagram\.com\/p\/[^"\/<>]+$/gm
         );
+        const instaRegex2 = new RegExp(
+            /^https:\/\/www\.instagram\.com\/p\/[^"\/<>]+\/$/gm
+        );
+        const instaRegex3 = new RegExp(
+            /^https:\/\/www\.instagram\.com\/p\/[^"\/<>]+\/[?]igshid=[^"\/<>]+=$/gm
+        );
         const twitterRegex = new RegExp(
             /^<blockquote\sclass="twitter-tweet"><p lang="[^"\/<>]+" dir="ltr">[^"\/<>]+<\/p>[^"\/<>]+<a\shref="https:\/\/twitter\.com\/[^"\/<>]+\/status\/[^"\/<>]+">[^"\/<>]+<\/a><\/blockquote>\s<script async src="https:\/\/platform\.twitter\.com\/widgets\.js" charset="utf-8"><\/script>$/gm
         );
@@ -79,9 +85,18 @@ export const NewPost = () => {
                     postBody.link = `<iframe src="${link}/embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
                     sendLink();
                     setValidLink(postBody.link);
+                } else if (instaRegex2.test(link)) {
+                    postBody.link = `<iframe src="${link}embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+                    sendLink();
+                    setValidLink(postBody.link);
+                } else if (instaRegex3.test(link)) {
+                    const modifiedLink = link.split('?');
+                    postBody.link = `<iframe src="${modifiedLink[0]}embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+                    sendLink();
+                    setValidLink(postBody.link);
                 } else {
                     setInvalidLinkText(
-                        "Invalid Instagram post link, please use the insta's post link as is without a '/' at the end"
+                        "Invalid Instagram post link, please use the insta's post link as is"
                     );
                     setLinkFormError(true);
                 }

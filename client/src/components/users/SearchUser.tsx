@@ -15,7 +15,7 @@ export const SearchUser = () => {
     const [searchResult, setSearchResult] = useState(null);
 
     const handleSubmit = () => {
-        setEnteredUsername(username);
+        setEnteredUsername(username.toLowerCase());
 
         let error = null;
         if (username == '' || username == ' ') {
@@ -27,7 +27,7 @@ export const SearchUser = () => {
             const getData = async () => {
                 try {
                     const res = await axios.get(
-                        `/api/users/profile/${username}`
+                        `/api/users/profile/${username.toLowerCase()}`
                     );
                     if (res.data === null) {
                         setinvalidUserText('User does not exist');
