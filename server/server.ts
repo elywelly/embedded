@@ -26,10 +26,15 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use(
-  helmet({
-    contentSecurityPolicy: false,
+  helmet.contentSecurityPolicy({
+    directives: {
+      scriptSsrc: ["'self'", "https://embedded-the-app.herokuapp.com/"],
+      objectSrc: ["'self'", "https://embedded-the-app.herokuapp.com/", 'https://www.youtube.com/', 'https://www.instagram.com/', 'https://twitter.com/', 'https://giphy.com/'],
+      frameAncestors: ["'self'", "https://embedded-the-app.herokuapp.com/", 'https://www.youtube.com/', 'https://www.instagram.com/', 'https://twitter.com/', 'https://giphy.com/'],
+    },
   })
 );
+
 
 app.use(
   expressSession({
