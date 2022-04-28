@@ -98,6 +98,7 @@ export const UserProfileSearchResult = (props: any) => {
                                                         className='flex flex-col justify-center gap-5'
                                                         key={link.id}>
                                                         <div
+                                                            className='each-embed'
                                                             dangerouslySetInnerHTML={{
                                                                 __html: link.link,
                                                             }}

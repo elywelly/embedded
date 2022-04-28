@@ -70,3 +70,11 @@ blockquote.twitter-tweet {
   blockquote.twitter-tweet a:focus {
     text-decoration: underline;
   }
+
+
+@media (min-width: 350px) {
+    .each-embed > * {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

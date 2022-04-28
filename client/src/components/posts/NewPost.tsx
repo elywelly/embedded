@@ -10,7 +10,6 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
-import '../../App.css';
 
 export const NewPost = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
@@ -82,16 +81,16 @@ export const NewPost = () => {
                 break;
             case 'instagram':
                 if (instaRegex.test(link)) {
-                    postBody.link = `<iframe src="${link}/embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+                    postBody.link = `<iframe src="${link}/embed" width="300" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
                     sendLink();
                     setValidLink(postBody.link);
                 } else if (instaRegex2.test(link)) {
-                    postBody.link = `<iframe src="${link}embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+                    postBody.link = `<iframe src="${link}embed" width="300" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
                     sendLink();
                     setValidLink(postBody.link);
                 } else if (instaRegex3.test(link)) {
                     const modifiedLink = link.split('?');
-                    postBody.link = `<iframe src="${modifiedLink[0]}embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+                    postBody.link = `<iframe src="${modifiedLink[0]}embed" width="300" height="390" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
                     sendLink();
                     setValidLink(postBody.link);
                 } else {
@@ -248,7 +247,7 @@ export const NewPost = () => {
                     )}
                     {!linkFormError && (
                         <div
-                            className='flex justify-center items-center h-screen"'
+                            className='flex justify-center items-center'
                             dangerouslySetInnerHTML={{ __html: validLink }}
                         />
                     )}
