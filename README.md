@@ -42,17 +42,11 @@ Install dependencies:
 ```
 cd embedded
 npm install
-
-cd /embedded/client
-npm install
-
-cd /embedded/server
-npm install
 ```
 
 Create a Postgres database with schema `/server/database/schema.sql`
 
-Create enviornment variables with your own `.env` file. Example variables:
+Create enviornment variables with your own `.env` file in your `server` directory. Example variables:
 
 ```
 SESSION_SECRET=secret
