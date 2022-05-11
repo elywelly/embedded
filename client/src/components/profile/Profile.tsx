@@ -55,7 +55,7 @@ export const Profile = () => {
                 <section className='relative block' style={{ height: '500px' }}>
                     <img
                         className='absolute top-0 w-full h-full bg-center bg-cover object-cover'
-                        src={require(`${background}`)}
+                        src={require(background)}
                         alt=''
                     />
                     <div
