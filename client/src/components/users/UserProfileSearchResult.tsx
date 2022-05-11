@@ -5,14 +5,14 @@ const background: string = './background.avif';
 
 export const UserProfileSearchResult = (props: any) => {
     const [userLinks, setUserLinks] = useState<any>([]);
-    const [errorActionMessage, setErrorActionMessage] = useState<any>('');
-    const [successActionMessage, setSuccessActionMessage] = useState<any>('');
+    const [errorActionMessage, setErrorActionMessage] = useState<string>('');
+    const [successActionMessage, setSuccessActionMessage] = useState<string>('');
 
     useEffect(() => {
         const getData = async () => {
             try {
                 const res = await axios.get(
-                    `api/posts/user/${props.searchResult.id}`
+                    `/api/posts/user/${props.searchResult.id}`
                 );
                 setUserLinks(res.data);
             } catch {
