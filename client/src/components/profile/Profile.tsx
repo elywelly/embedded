@@ -9,9 +9,9 @@ const background: string = './background.avif';
 export const Profile = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [userLinks, setUserLinks] = useState<any>([]);
-    const [errorActionMessage, setErrorActionMessage] = useState<any>('');
-    const [successActionMessage, setSuccessActionMessage] = useState<any>('');
-    const [order_by, setOrderBy] = useState<any>('desc');
+    const [errorActionMessage, setErrorActionMessage] = useState<string>('');
+    const [successActionMessage, setSuccessActionMessage] = useState<string>('');
+    const [order_by, setOrderBy] = useState<string>('desc');
 
     const getData = async () => {
         try {
