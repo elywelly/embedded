@@ -5,13 +5,13 @@ import { Navigate } from 'react-router-dom';
 import ApplicationContext from '../../application-context';
 import PostRatings from '../profile/PostRatings';
 
-const background: string = './background.png';
+const background = './background.png';
 
 export const RatedPosts = () => {
     const [currentUser, setCurrentUser] = useContext(ApplicationContext);
     const [ratedPosts, setRatedPosts] = useState<any>([]);
-    const [errorActionMessage, setErrorActionMessage] = useState<any>('');
-    const [rating, setRating] = useState<any>('desc');
+    const [errorActionMessage, setErrorActionMessage] = useState<string>('');
+    const [rating, setRating] = useState<string>('desc');
 
     useEffect(() => {
         const getData = async () => {
